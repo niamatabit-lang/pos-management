@@ -11,17 +11,18 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+
         $middleware->alias([
             'role' => \App\Http\Middleware\EnsureRole::class,
             'shop.permission' => \App\Http\Middleware\CheckShopPermission::class,
             'current.shop' => \App\Http\Middleware\SetCurrentShop::class,
         ]);
 
-        // পুরো অ্যাপে সেশনে সেভ করা ভাষা (বাংলা/ইংলিশ) সেট করার জন্য
         $middleware->web(append: [
             \App\Http\Middleware\SetLocale::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();
