@@ -1,1 +1,0 @@
-<?php /**PATH D:\pos-management\resources\views/layouts/footer.blade.php ENDPATH**/ ?>
