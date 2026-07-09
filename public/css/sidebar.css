@@ -1,0 +1,257 @@
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar{
+
+    background:#198754;
+
+    color:#ffffff;
+
+    width:260px;
+
+    height:100vh;
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    overflow-y:auto;
+
+    transition:.3s;
+
+}
+
+/* ==========================
+   Logo
+========================== */
+
+.logo{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-bottom:1px solid rgba(255,255,255,.15);
+
+    font-size:24px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+
+}
+
+.logo span{
+
+    color:#d1f4df;
+
+}
+
+/* ==========================
+   Navigation
+========================== */
+
+.sidebar-nav{
+
+    padding:20px 15px;
+
+}
+
+.sidebar-nav ul{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:8px;
+
+}
+
+/* ==========================
+   Menu Item
+========================== */
+
+.sidebar-nav li{
+
+    list-style:none;
+
+}
+
+/* ==========================
+   Link
+========================== */
+
+.sidebar-nav a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    padding:14px 18px;
+
+    color:#ffffff;
+
+    border-radius:10px;
+
+    transition:.3s;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+/* ==========================
+   Icon
+========================== */
+
+.sidebar-nav a i{
+
+    width:22px;
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+/* ==========================
+   Hover
+========================== */
+
+.sidebar-nav a:hover{
+
+    background:rgba(255,255,255,.12);
+
+}
+
+/* ==========================
+   Active Menu
+========================== */
+
+.sidebar-nav a.active{
+
+    background:#ffffff;
+
+    color:#198754;
+
+    font-weight:600;
+
+}
+
+/* ==========================
+   Section Title
+========================== */
+
+.menu-title{
+
+    margin:25px 15px 10px;
+
+    font-size:12px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1px;
+
+    color:#d8f3dc;
+
+}
+
+/* ==========================
+   Sub Menu
+========================== */
+
+.sub-menu{
+
+    margin-left:18px;
+
+    display:none;
+
+}
+
+.sub-menu a{
+
+    font-size:14px;
+
+    padding:11px 15px;
+
+}
+
+/* ==========================
+   Open Menu
+========================== */
+
+.has-sub.active .sub-menu{
+
+    display:block;
+
+}
+
+/* ==========================
+   Scrollbar
+========================== */
+
+.sidebar::-webkit-scrollbar{
+
+    width:7px;
+
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+
+    background:rgba(255,255,255,.25);
+
+    border-radius:20px;
+
+}
+
+/* ==========================
+   Collapse
+========================== */
+
+.sidebar.collapsed{
+
+    width:80px;
+
+}
+
+.sidebar.collapsed .logo span{
+
+    display:none;
+
+}
+
+.sidebar.collapsed a span{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .menu-title{
+
+    display:none;
+
+}
+
+.sidebar.collapsed .sub-menu{
+
+    display:none!important;
+
+}
+
+.sidebar.collapsed + .main{
+
+    margin-left:80px;
+
+    width:calc(100% - 80px);
+
+}

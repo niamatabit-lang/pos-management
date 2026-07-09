@@ -1,0 +1,161 @@
+/* ======================================================
+   BUTTONS
+====================================================== */
+
+.btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:12px 22px;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:10px;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.25s;
+
+    text-decoration:none;
+
+}
+
+/* Primary */
+
+.btn-primary{
+
+    background:#198754;
+
+    color:#fff;
+
+}
+
+.btn-primary:hover{
+
+    background:#146c43;
+
+}
+
+/* Secondary */
+
+.btn-secondary{
+
+    background:#ffffff;
+
+    color:#198754;
+
+    border:2px solid #198754;
+
+}
+
+.btn-secondary:hover{
+
+    background:#198754;
+
+    color:#ffffff;
+
+}
+
+/* Success */
+
+.btn-success{
+
+    background:#20c997;
+
+    color:#ffffff;
+
+}
+
+.btn-success:hover{
+
+    background:#18a97d;
+
+}
+
+/* Warning */
+
+.btn-warning{
+
+    background:#ffc107;
+
+    color:#222;
+
+}
+
+.btn-warning:hover{
+
+    background:#e0a800;
+
+}
+
+/* Danger */
+
+.btn-danger{
+
+    background:#dc3545;
+
+    color:#ffffff;
+
+}
+
+.btn-danger:hover{
+
+    background:#bb2d3b;
+
+}
+
+/* Info */
+
+.btn-info{
+
+    background:#0dcaf0;
+
+    color:#ffffff;
+
+}
+
+.btn-info:hover{
+
+    background:#0aa7c6;
+
+}
+
+/* Small */
+
+.btn-sm{
+
+    padding:8px 14px;
+
+    font-size:13px;
+
+}
+
+/* Large */
+
+.btn-lg{
+
+    padding:15px 30px;
+
+    font-size:17px;
+
+}
+
+/* Full Width */
+
+.btn-block{
+
+    width:100%;
+
+}

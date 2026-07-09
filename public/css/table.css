@@ -1,0 +1,280 @@
+/* ======================================================
+   TABLE
+====================================================== */
+
+.table-wrapper{
+
+    width:100%;
+
+    overflow-x:auto;
+
+    background:#ffffff;
+
+    border-radius:12px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+    min-width:900px;
+
+}
+
+/* Header */
+
+.table thead{
+
+    background:#198754;
+
+}
+
+.table thead th{
+
+    color:#ffffff;
+
+    padding:16px 18px;
+
+    text-align:left;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+}
+
+/* Body */
+
+.table tbody tr{
+
+    border-bottom:1px solid #eeeeee;
+
+    transition:.25s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#f7fbf8;
+
+}
+
+.table tbody td{
+
+    padding:15px 18px;
+
+    font-size:14px;
+
+    color:#444;
+
+    vertical-align:middle;
+
+}
+
+/* Zebra */
+
+.table tbody tr:nth-child(even){
+
+    background:#fcfcfc;
+
+}
+
+/* Last Row */
+
+.table tbody tr:last-child{
+
+    border-bottom:none;
+
+}
+
+/* Align */
+
+.text-left{
+
+    text-align:left;
+
+}
+
+.text-center{
+
+    text-align:center;
+
+}
+
+.text-right{
+
+    text-align:right;
+
+}
+
+/* Action */
+
+.table-action{
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:center;
+
+}
+
+/* Badge */
+
+.badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:6px 12px;
+
+    border-radius:50px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.badge-success{
+
+    background:#d1f4df;
+
+    color:#198754;
+
+}
+
+.badge-danger{
+
+    background:#fde2e2;
+
+    color:#dc3545;
+
+}
+
+.badge-warning{
+
+    background:#fff3cd;
+
+    color:#856404;
+
+}
+
+.badge-info{
+
+    background:#d9f3ff;
+
+    color:#0d6efd;
+
+}
+
+/* Empty */
+
+.table-empty{
+
+    text-align:center;
+
+    padding:50px 20px;
+
+    color:#777;
+
+    font-size:15px;
+
+}
+
+/* Footer */
+
+.table-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:18px;
+
+    border-top:1px solid #eeeeee;
+
+}
+
+/* Pagination */
+
+.pagination{
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.pagination a{
+
+    width:38px;
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:8px;
+
+    border:1px solid #dddddd;
+
+    color:#333;
+
+    transition:.25s;
+
+}
+
+.pagination a:hover{
+
+    background:#198754;
+
+    color:#ffffff;
+
+    border-color:#198754;
+
+}
+
+.pagination .active{
+
+    background:#198754;
+
+    color:#ffffff;
+
+    border-color:#198754;
+
+}
+/* Dashboard Stock Table Only */
+
+.table th:nth-child(2),
+.table td:nth-child(2){
+    width:120px;
+    text-align:center;
+}
+
+.table th:nth-child(3),
+.table td:nth-child(3){
+    width:140px;
+    text-align:right;
+}
+
+.table th:nth-child(4),
+.table td:nth-child(4){
+    width:160px;
+    text-align:right;
+}

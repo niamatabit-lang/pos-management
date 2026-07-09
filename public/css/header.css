@@ -1,0 +1,205 @@
+/* ======================================================
+   HEADER
+====================================================== */
+
+.header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    background:#ffffff;
+
+    height:70px;
+
+    padding:0 25px;
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+/* ===========================
+   Left
+=========================== */
+
+.header-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+/* ===========================
+   Sidebar Toggle
+=========================== */
+
+.menu-toggle{
+
+    width:42px;
+
+    height:42px;
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    border-radius:10px;
+
+    background:#198754;
+
+    color:#ffffff;
+
+    font-size:20px;
+
+    transition:.3s;
+
+}
+
+.menu-toggle:hover{
+
+    background:#157347;
+
+}
+
+/* ===========================
+   Search
+=========================== */
+
+.header-search{
+
+    position:relative;
+
+}
+
+.header-search input{
+
+    width:320px;
+
+    height:42px;
+
+    padding:0 15px;
+
+    border:1px solid #dcdcdc;
+
+    border-radius:10px;
+
+    outline:none;
+
+    transition:.3s;
+
+}
+
+.header-search input:focus{
+
+    border-color:#198754;
+
+}
+
+/* ===========================
+   Right
+=========================== */
+
+.header-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+/* ===========================
+   Notification
+=========================== */
+
+.notification{
+
+    width:42px;
+
+    height:42px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    background:#f4f4f4;
+
+    transition:.3s;
+
+}
+
+.notification:hover{
+
+    background:#198754;
+
+    color:#ffffff;
+
+}
+
+/* ===========================
+   User
+=========================== */
+
+.user{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    cursor:pointer;
+
+}
+
+.user img{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:50%;
+
+    object-fit:cover;
+
+    border:2px solid #198754;
+
+}
+
+.user-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.user-name{
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.user-role{
+
+    font-size:13px;
+
+    color:#666;
+
+}

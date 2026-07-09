@@ -1,0 +1,200 @@
+/* ======================================================
+   LAYOUT
+====================================================== */
+
+/* ---------- Sidebar ---------- */
+
+.sidebar{
+
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:var(--sidebar-width);
+
+    height:100vh;
+
+    background:#198754;
+
+    color:#fff;
+
+    overflow-y:auto;
+
+    transition:var(--transition);
+
+    z-index:999;
+
+}
+
+/* ---------- Main ---------- */
+
+.main{
+
+    width:calc(100% - var(--sidebar-width));
+
+    margin-left:var(--sidebar-width);
+
+    min-height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* ---------- Header ---------- */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    height:var(--header-height);
+
+    background:#fff;
+
+    border-bottom:1px solid var(--border);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    padding:0 25px;
+
+    z-index:100;
+
+}
+
+/* ---------- Content ---------- */
+
+.content{
+
+    flex:1;
+
+    padding:25px;
+
+}
+
+/* ---------- Footer ---------- */
+
+.footer{
+
+    background:#fff;
+
+    border-top:1px solid var(--border);
+
+    padding:15px 25px;
+
+    color:#777;
+
+}
+
+/* ---------- Page ---------- */
+
+.page{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+}
+
+/* ---------- Page Header ---------- */
+
+.page-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.page-title{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    color:#198754;
+
+}
+
+.page-subtitle{
+
+    color:#777;
+
+    margin-top:5px;
+
+}
+
+/* ---------- Container ---------- */
+
+.container{
+
+    width:100%;
+
+}
+
+/* ---------- Section ---------- */
+
+.section{
+
+    background:#fff;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* ---------- Grid ---------- */
+
+.grid{
+
+    display:grid;
+
+    gap:20px;
+
+}
+
+/* ---------- Four Columns ---------- */
+
+.grid-4{
+
+    grid-template-columns:repeat(4,1fr);
+
+}
+
+/* ---------- Three Columns ---------- */
+
+.grid-3{
+
+    grid-template-columns:repeat(3,1fr);
+
+}
+
+/* ---------- Two Columns ---------- */
+
+.grid-2{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+/* ---------- One Column ---------- */
+
+.grid-1{
+
+    grid-template-columns:1fr;
+
+}
