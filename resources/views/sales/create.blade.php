@@ -2,38 +2,43 @@
 
 @section('title', __('app.new_sale'))
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/pos.css') }}">
+@endpush
+
 @section('content')
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
+    <x-page-header>
+        <x-slot:heading>
             <h1 class="page-title">{{ __('app.new_sale') }} (POS)</h1>
             <p class="page-subtitle">{{ __('app.new_sale_subtitle') }}</p>
-        </div>
-
-        <a href="{{ route('sales.index') }}" class="btn btn-secondary">&larr; {{ __('app.back_to_list') }}</a>
-    </div>
+        </x-slot:heading>
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('sales.index') }}" variant="secondary">&larr; {{ __('app.back_to_list') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="danger">
             {{ session('error') }}
-        </div>
+        </x-alert>
     @endif
 
-    <div id="posError" style="display:none;background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;"></div>
+    <div id="posError" class="alert alert-danger d-none"></div>
 
     <div class="pos-layout">
 
         {{-- Left: Product picker --}}
-        <div class="card">
+        <x-card>
 
             <div class="form-group">
                 <label class="form-label">{{ __('app.product_search') }}</label>
                 <input type="text" id="productSearch" class="form-control" placeholder="{{ __('app.search_name_sku') }}">
             </div>
 
-            <div class="table-wrapper" style="box-shadow:none;">
+            <x-table-wrapper class="table-wrapper-flat">
                 <table class="table" id="productTable">
                     <thead>
                         <tr>
@@ -47,16 +52,16 @@
                         {{-- JS দিয়ে ভরা হবে --}}
                     </tbody>
                 </table>
-            </div>
+            </x-table-wrapper>
 
-        </div>
+        </x-card>
 
         {{-- Right: Cart + Checkout --}}
-        <div class="card">
+        <x-card>
 
-            <h2 style="font-size:18px;margin-bottom:15px;color:#198754;">{{ __('app.cart') }}</h2>
+            <h2 class="section-title text-primary">{{ __('app.cart') }}</h2>
 
-            <div class="table-wrapper" style="box-shadow:none;margin-bottom:20px;">
+            <x-table-wrapper class="table-wrapper-flat mb-20">
                 <table class="table">
                     <thead>
                         <tr>
@@ -72,7 +77,7 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
+            </x-table-wrapper>
 
             <form method="POST" action="{{ route('sales.store') }}" id="saleForm">
                 @csrf
@@ -111,42 +116,15 @@
                     <input type="text" class="form-control" id="dueDisplay" value="0.00" disabled>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-block" id="submitSaleBtn">{{ __('app.complete_sale') }}</button>
+                <x-button variant="primary" block id="submitSaleBtn">{{ __('app.complete_sale') }}</x-button>
 
             </form>
 
-        </div>
+        </x-card>
 
     </div>
 
 </div>
-
-<style>
-    .pos-layout{
-        display:grid;
-        grid-template-columns:1.5fr 1fr;
-        gap:20px;
-        align-items:start;
-    }
-    /* চেকআউট প্যানেলটা স্ক্রল করলেও সবসময় দেখা যাবে, নিচের গ্রাহকের ডিটেইলস/বাটন
-       আর স্ক্রিনের বাইরে চলে যাবে না */
-    .pos-layout .card:nth-child(2){
-        position:sticky;
-        top:20px;
-        max-height:calc(100vh - 40px);
-        overflow-y:auto;
-    }
-    @media (max-width:900px){
-        .pos-layout{
-            grid-template-columns:1fr;
-        }
-        .pos-layout .card:nth-child(2){
-            position:static;
-            max-height:none;
-            overflow-y:visible;
-        }
-    }
-</style>
 
 <script>
 (function () {
@@ -180,8 +158,8 @@
 
     function showError(msg) {
         posError.textContent = msg;
-        posError.style.display = 'block';
-        setTimeout(function () { posError.style.display = 'none'; }, 4000);
+        posError.classList.remove('d-none');
+        setTimeout(function () { posError.classList.add('d-none'); }, 4000);
     }
 
     function recalcTotals() {
@@ -224,7 +202,7 @@
             const outOfStock = p.stock <= 0;
 
             tr.innerHTML =
-                '<td>' + p.name + '<br><small style="color:#999;">' + p.sku + '</small></td>' +
+                '<td>' + p.name + '<br><small class="text-muted-note">' + p.sku + '</small></td>' +
                 '<td class="text-right">৳ ' + money(p.price) + '</td>' +
                 '<td class="text-right">' + p.stock + ' ' + p.unit + '</td>' +
                 '<td class="text-right"><button type="button" class="btn btn-secondary btn-sm" data-add="' + p.id + '"' + (outOfStock ? ' disabled' : '') + '>' + I18N.add + '</button></td>';
@@ -247,7 +225,7 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML =
                     '<td>' + item.name + '</td>' +
-                    '<td class="text-right"><input type="number" min="1" max="' + item.stock + '" value="' + item.qty + '" data-qty="' + id + '" class="form-control" style="width:80px;height:36px;padding:0 8px;display:inline-block;"></td>' +
+                    '<td class="text-right"><input type="number" min="1" max="' + item.stock + '" value="' + item.qty + '" data-qty="' + id + '" class="form-control input-qty-cart"></td>' +
                     '<td class="text-right">৳ ' + money(subtotal) + '</td>' +
                     '<td class="text-right"><button type="button" class="btn btn-danger btn-sm" data-remove="' + id + '">&times;</button></td>';
 

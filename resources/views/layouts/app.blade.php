@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Pos Management')</title>
+    <title>@yield('title', config('ui.app_name'))</title>
 
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/forms.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/table.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/buttons.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/utilities.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/print.css') }}">
+    {{-- Single Point Control: config/ui.php -> CSS variables --}}
+    @include('layouts.partials.theme-vars')
+
+    {{-- Stylesheet list is centrally defined in config/ui.php --}}
+    @foreach (config('ui.stylesheets', []) as $stylesheet)
+        <link rel="stylesheet" href="{{ asset($stylesheet) }}">
+    @endforeach
+
+    @stack('styles')
 </head>
 
 <body>
@@ -40,8 +38,10 @@
 
 </div>
 
-<script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/sidebar.js') }}"></script>
+{{-- Script list is centrally defined in config/ui.php --}}
+@foreach (config('ui.scripts', []) as $script)
+    <script src="{{ asset($script) }}"></script>
+@endforeach
 
 @stack('scripts')
 

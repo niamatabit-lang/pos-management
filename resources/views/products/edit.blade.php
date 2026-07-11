@@ -6,16 +6,13 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.edit_product') }}</h1>
-            <p class="page-subtitle">{{ __('app.edit_product_subtitle', ['name' => $product->name]) }}</p>
-        </div>
+    <x-page-header :title="__('app.edit_product')" :subtitle="__('app.edit_product_subtitle', ['name' => $product->name])">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('products.index') }}" variant="secondary">&larr; {{ __('app.back_to_list') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">&larr; {{ __('app.back_to_list') }}</a>
-    </div>
-
-    <div class="card">
+    <x-card>
         <form method="POST" action="{{ route('products.update', $product) }}">
             @csrf
             @method('PUT')
@@ -79,22 +76,22 @@
                 <div class="form-group">
                     <label class="form-label">{{ __('app.commission_per_unit') }}</label>
                     <input type="number" step="0.01" name="commission" class="form-control" value="{{ old('commission', $product->commission) }}">
-                    <small style="color:#888;">{{ __('app.commission_edit_note') }}</small>
+                    <small class="text-muted-note">{{ __('app.commission_edit_note') }}</small>
                     @error('commission') <div class="form-error">{{ $message }}</div> @enderror
                 </div>
             </div>
 
-            <p class="page-subtitle" style="margin-bottom:20px;">
+            <p class="page-subtitle mb-20">
                 {{ __('app.current_stock') }}ঃ <strong>{{ $product->quantity }} {{ $product->unit }}</strong>
             </p>
 
-            <button type="submit" class="btn btn-primary">{{ __('app.update_product') }}</button>
+            <x-button variant="primary">{{ __('app.update_product') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
-    <div class="card" style="margin-top:20px;">
-        <h2 style="font-size:18px;margin-bottom:15px;">{{ __('app.restock') }}</h2>
-        <p class="page-subtitle" style="margin-bottom:15px;">{{ __('app.restock_note') }}</p>
+    <x-card class="mt-20">
+        <h2 class="section-title">{{ __('app.restock') }}</h2>
+        <p class="page-subtitle mb-15">{{ __('app.restock_note') }}</p>
 
         <form method="POST" action="{{ route('products.restock', $product) }}">
             @csrf
@@ -112,9 +109,9 @@
                     <input type="text" name="note" class="form-control" placeholder="{{ __('app.eg_new_purchase') }}">
                 </div>
             </div>
-            <button type="submit" class="btn btn-secondary">{{ __('app.increase_stock') }}</button>
+            <x-button variant="secondary">{{ __('app.increase_stock') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 

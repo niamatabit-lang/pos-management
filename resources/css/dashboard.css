@@ -1,0 +1,67 @@
+/* ======================================================
+   DASHBOARD
+====================================================== */
+
+/* KPI Grid */
+
+.kpi-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+/* KPI Card */
+
+.kpi-card{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:24px;
+    box-shadow:var(--shadow);
+    border-left:5px solid var(--primary);
+    transition:var(--transition);
+}
+
+.kpi-card:hover{
+    transform:translateY(-4px);
+}
+
+.kpi-title{
+    font-size:var(--font-size-sm);
+    color:var(--text-light);
+    margin-bottom:12px;
+}
+
+.kpi-value{
+    font-size:32px;
+    font-weight:700;
+    color:var(--primary);
+}
+
+/* Chart */
+
+.chart-card{
+    margin-top:25px;
+}
+
+.chart-placeholder{
+    height:320px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#f7f9fb;
+    border:2px dashed #d9d9d9;
+    border-radius:var(--radius-lg);
+    color:#999;
+    font-size:18px;
+}
+
+/* Table */
+
+.table-card{
+    margin-top:25px;
+}
+
+.table-title{
+    font-size:20px;
+    margin-bottom:20px;
+}

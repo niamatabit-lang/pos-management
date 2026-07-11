@@ -1,1 +1,133 @@
-@vite(['resources/css/app.css', 'resources/js/app.js'])
+/* ======================================================
+   LAYOUT — App Shell / Grid / Page Structure
+====================================================== */
+
+.app{
+    display:flex;
+    min-height:100vh;
+}
+
+/* ---------- Main ---------- */
+
+.main{
+    width:calc(100% - var(--sidebar-width));
+    margin-left:var(--sidebar-width);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    transition:var(--transition);
+}
+
+/* ---------- Content ---------- */
+
+.content{
+    flex:1;
+    padding:var(--content-padding);
+}
+
+/* ---------- Footer ---------- */
+
+.footer{
+    background:var(--white);
+    border-top:1px solid var(--border);
+    padding:15px var(--content-padding);
+    color:var(--text-faint);
+}
+
+/* ---------- Page ---------- */
+
+.page{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ---------- Page Header ---------- */
+
+.page-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:15px;
+}
+
+/* Flat variant: used when a page-header sits at the top of a card/table-wrapper */
+.page-header-flat{
+    padding:18px 18px 0;
+}
+
+.page-title{
+    font-size:28px;
+    font-weight:700;
+    color:var(--primary);
+}
+
+.page-subtitle{
+    color:var(--text-faint);
+    margin-top:5px;
+}
+
+/* Reusable section heading, smaller than page-title (used inside cards) */
+.section-title{
+    font-size:var(--font-size-lg);
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:15px;
+}
+
+/* ---------- Container ---------- */
+
+.container{
+    width:100%;
+    max-width:var(--container-max-width);
+    margin-inline:auto;
+}
+
+/* ---------- Section ---------- */
+
+.section{
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+
+/* ---------- Grid ---------- */
+
+.grid{
+    display:grid;
+    gap:20px;
+}
+
+.grid-4{ grid-template-columns:repeat(4,1fr); }
+.grid-3{ grid-template-columns:repeat(3,1fr); }
+.grid-2{ grid-template-columns:repeat(2,1fr); }
+.grid-1{ grid-template-columns:1fr; }
+
+/* ---------- List Row (simple space-between rows used inside cards) ---------- */
+
+.list-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:6px 0;
+}
+
+/* ---------- Actions bar / group (right-aligned button clusters) ---------- */
+
+.actions-bar{
+    padding:20px;
+    display:flex;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.actions-group{
+    display:flex;
+    gap:6px;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+    align-items:center;
+}

@@ -6,27 +6,18 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.nav_shops') }}</h1>
-            <p class="page-subtitle">{{ __('app.shops_subtitle') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.nav_shops')" :subtitle="__('app.shops_subtitle')" />
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('error') }}
-        </div>
+        <x-alert variant="danger">{{ session('error') }}</x-alert>
     @endif
 
     @if (auth()->user()->isSuperAdmin())
-        <div class="card" style="margin-bottom:20px;">
+        <x-card class="mb-20">
             <form method="POST" action="{{ route('shops.store') }}">
                 @csrf
                 <div class="form-row">
@@ -47,24 +38,24 @@
 
                 <div class="form-group">
                     <label class="form-label">{{ __('app.shop_owner_optional') }}</label>
-                    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                    <div class="d-flex flex-wrap gap-16">
                         @forelse ($owners as $owner)
                             <label class="form-check">
                                 <input type="checkbox" name="owner_ids[]" value="{{ $owner->id }}">
                                 {{ $owner->name }} ({{ $owner->email }})
                             </label>
                         @empty
-                            <span style="color:#999;">{{ __('app.no_owners_yet') }} <a href="{{ route('users.create') }}">{{ __('app.create_here') }}</a>।</span>
+                            <span class="text-muted-note">{{ __('app.no_owners_yet') }} <a href="{{ route('users.create') }}" class="text-primary">{{ __('app.create_here') }}</a>।</span>
                         @endforelse
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">+ {{ __('app.add_shop') }}</button>
+                <x-button variant="primary">+ {{ __('app.add_shop') }}</x-button>
             </form>
-        </div>
+        </x-card>
     @endif
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -85,7 +76,7 @@
                         <td>
                             {{ $shop->name }}
                             @if ($shop->id === $currentShop->id)
-                                <span class="badge badge-success">{{ __('app.active') }}</span>
+                                <x-badge variant="success">{{ __('app.active') }}</x-badge>
                             @endif
                         </td>
                         <td>{{ $shop->address ?? '-' }}</td>
@@ -99,17 +90,17 @@
                         <td class="text-right">{{ $shop->sales_count }}</td>
                         <td class="text-right">
                             @if ($shop->id !== $currentShop->id)
-                                <form method="POST" action="{{ route('shops.switch') }}" style="display:inline;">
+                                <form method="POST" action="{{ route('shops.switch') }}" class="d-inline">
                                     @csrf
                                     <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                                    <button type="submit" class="btn btn-secondary btn-sm">{{ __('app.select') }}</button>
+                                    <x-button variant="secondary" size="sm">{{ __('app.select') }}</x-button>
                                 </form>
                             @endif
                             @if (auth()->user()->isSuperAdmin())
-                                <form method="POST" action="{{ route('shops.destroy', $shop) }}" style="display:inline;" onsubmit="return confirm('{{ __('app.confirm_delete_shop') }}');">
+                                <form method="POST" action="{{ route('shops.destroy', $shop) }}" class="d-inline" onsubmit="return confirm('{{ __('app.confirm_delete_shop') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                    <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                                 </form>
                             @endif
                         </td>
@@ -121,7 +112,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

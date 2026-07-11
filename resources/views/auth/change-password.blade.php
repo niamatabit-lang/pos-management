@@ -6,26 +6,21 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.change_password') }}</h1>
-            <p class="page-subtitle">{{ __('app.change_password_note') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.change_password')" :subtitle="__('app.change_password_note')" />
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="success">
             {{ session('success') }}
-        </div>
+        </x-alert>
     @endif
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="danger">
             {{ session('error') }}
-        </div>
+        </x-alert>
     @endif
 
-    <div class="card" style="max-width:480px;">
+    <x-card width="480">
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 
@@ -38,7 +33,7 @@
             <div class="form-group">
                 <label class="form-label">{{ __('app.new_password') }} <span class="required">*</span></label>
                 <input type="password" name="new_password" class="form-control">
-                <small style="color:#888;">{{ __('app.min_6_chars') }}</small>
+                <small class="text-muted-note">{{ __('app.min_6_chars') }}</small>
                 @error('new_password') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
@@ -47,9 +42,9 @@
                 <input type="password" name="new_password_confirmation" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ __('app.change_password_button') }}</button>
+            <x-button variant="primary">{{ __('app.change_password_button') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 

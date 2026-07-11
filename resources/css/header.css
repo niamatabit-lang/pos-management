@@ -1,0 +1,170 @@
+/* ======================================================
+   HEADER
+====================================================== */
+
+.header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:var(--white);
+    height:var(--header-height);
+    padding:0 var(--content-padding);
+    border-bottom:1px solid var(--border);
+    position:sticky;
+    top:0;
+    z-index:var(--z-header);
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+/* ===========================
+   Left
+=========================== */
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+/* ===========================
+   Sidebar Toggle
+=========================== */
+
+.menu-toggle{
+    width:42px;
+    height:42px;
+    border:none;
+    outline:none;
+    cursor:pointer;
+    border-radius:var(--radius);
+    background:var(--primary);
+    color:var(--white);
+    font-size:20px;
+    transition:var(--transition);
+}
+
+.menu-toggle:hover{
+    background:var(--primary-dark);
+}
+
+/* ===========================
+   Search
+=========================== */
+
+.header-search{
+    position:relative;
+}
+
+.header-search input{
+    width:320px;
+    height:42px;
+    padding:0 15px;
+    border:1px solid var(--border-input);
+    border-radius:var(--radius);
+    outline:none;
+    transition:var(--transition);
+}
+
+.header-search input:focus{
+    border-color:var(--primary);
+}
+
+/* ===========================
+   Right
+=========================== */
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+/* ===========================
+   Language Switch Form
+=========================== */
+
+.lang-switch-form{
+    display:flex;
+}
+
+/* ===========================
+   Shop Switcher
+=========================== */
+
+.shop-switcher{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--primary-light);
+    border:1px solid var(--primary);
+    padding:6px 12px;
+    border-radius:var(--radius-sm);
+}
+
+.shop-switcher-label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--primary);
+    white-space:nowrap;
+}
+
+.shop-switcher select{
+    min-width:160px;
+}
+
+/* ===========================
+   Notification
+=========================== */
+
+.notification{
+    width:42px;
+    height:42px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:var(--radius);
+    cursor:pointer;
+    background:#f4f4f4;
+    transition:var(--transition);
+}
+
+.notification:hover{
+    background:var(--primary);
+    color:var(--white);
+}
+
+/* ===========================
+   User
+=========================== */
+
+.user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    cursor:pointer;
+}
+
+.user img{
+    width:42px;
+    height:42px;
+    border-radius:var(--radius-circle);
+    object-fit:cover;
+    border:2px solid var(--primary);
+}
+
+.user-info{
+    display:flex;
+    flex-direction:column;
+}
+
+.user-name{
+    font-size:var(--font-size-base);
+    font-weight:600;
+}
+
+.user-role{
+    font-size:var(--font-size-sm);
+    color:var(--text-light);
+}

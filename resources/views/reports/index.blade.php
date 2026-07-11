@@ -6,44 +6,39 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.reports') }}</h1>
-            <p class="page-subtitle">{{ __('app.reports_subtitle') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.reports')" :subtitle="__('app.reports_subtitle')" />
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="GET" action="{{ route('reports.index') }}" class="form-row-4">
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.date_from') }}</label>
                 <input type="date" name="date_from" class="form-control" value="{{ $dateFrom->format('Y-m-d') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.date_to') }}</label>
                 <input type="date" name="date_to" class="form-control" value="{{ $dateTo->format('Y-m-d') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;gap:10px;">
-                <button type="submit" class="btn btn-primary">{{ __('app.view_report') }}</button>
-                <a href="{{ route('reports.index') }}" class="btn btn-secondary">{{ __('app.reset') }}</a>
-                <a href="{{ route('reports.export', ['date_from' => $dateFrom->toDateString(), 'date_to' => $dateTo->toDateString()]) }}" class="btn btn-secondary">📥 {{ __('app.export_csv') }}</a>
+            <div class="form-group form-group-flush form-group-inline">
+                <x-button variant="primary" type="submit">{{ __('app.view_report') }}</x-button>
+                <x-button tag="a" href="{{ route('reports.index') }}" variant="secondary">{{ __('app.reset') }}</x-button>
+                <x-button tag="a" href="{{ route('reports.export', ['date_from' => $dateFrom->toDateString(), 'date_to' => $dateTo->toDateString()]) }}" variant="secondary">📥 {{ __('app.export_csv') }}</x-button>
             </div>
 
         </form>
 
-        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::today()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::today()->toDateString()]) }}" class="btn btn-secondary btn-sm">{{ __('app.today') }}</a>
-            <a href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::yesterday()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::yesterday()->toDateString()]) }}" class="btn btn-secondary btn-sm">{{ __('app.yesterday') }}</a>
-            <a href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->startOfWeek()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->toDateString()]) }}" class="btn btn-secondary btn-sm">{{ __('app.this_week') }}</a>
-            <a href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->startOfMonth()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->toDateString()]) }}" class="btn btn-secondary btn-sm">{{ __('app.this_month') }}</a>
-            <a href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->subMonth()->startOfMonth()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->subMonth()->endOfMonth()->toDateString()]) }}" class="btn btn-secondary btn-sm">{{ __('app.last_month') }}</a>
+        <div class="mt-14 d-flex gap-10 flex-wrap">
+            <x-button tag="a" href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::today()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::today()->toDateString()]) }}" variant="secondary" size="sm">{{ __('app.today') }}</x-button>
+            <x-button tag="a" href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::yesterday()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::yesterday()->toDateString()]) }}" variant="secondary" size="sm">{{ __('app.yesterday') }}</x-button>
+            <x-button tag="a" href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->startOfWeek()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->toDateString()]) }}" variant="secondary" size="sm">{{ __('app.this_week') }}</x-button>
+            <x-button tag="a" href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->startOfMonth()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->toDateString()]) }}" variant="secondary" size="sm">{{ __('app.this_month') }}</x-button>
+            <x-button tag="a" href="{{ route('reports.index', ['date_from' => \Illuminate\Support\Carbon::now()->subMonth()->startOfMonth()->toDateString(), 'date_to' => \Illuminate\Support\Carbon::now()->subMonth()->endOfMonth()->toDateString()]) }}" variant="secondary" size="sm">{{ __('app.last_month') }}</x-button>
         </div>
-    </div>
+    </x-card>
 
-    <p class="page-subtitle" style="margin-bottom:16px;">
+    <p class="page-subtitle mb-16">
         {{ __('app.accounts_for_range', ['from' => $dateFrom->format('d M Y'), 'to' => $dateTo->format('d M Y')]) }}
     </p>
 
@@ -91,16 +86,18 @@
 
     </div>
 
-    <div class="table-wrapper" style="margin-bottom:20px;padding:20px;">
-        <h2 class="page-title" style="font-size:18px;margin-bottom:15px;">{{ __('app.sales_trend') }}</h2>
+    <x-table-wrapper padded class="mb-20">
+        <h2 class="section-title">{{ __('app.sales_trend') }}</h2>
         <canvas id="salesTrendChart" height="80"></canvas>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper" style="margin-bottom:20px;">
+    <x-table-wrapper class="mb-20">
 
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.whats_sold') }}</h2>
-        </div>
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.whats_sold') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -127,13 +124,15 @@
             </tbody>
         </table>
 
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
 
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.invoice_list') }}</h2>
-        </div>
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.invoice_list') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -157,7 +156,7 @@
                         <td class="text-right">৳ {{ number_format($sale->paid_amount, 2) }}</td>
                         <td class="text-right">৳ {{ number_format($sale->due_amount, 2) }}</td>
                         <td class="text-right">
-                            <a href="{{ route('sales.show', $sale) }}" class="btn btn-secondary btn-sm">{{ __('app.view') }}</a>
+                            <x-button tag="a" href="{{ route('sales.show', $sale) }}" variant="secondary" size="sm">{{ __('app.view') }}</x-button>
                         </td>
                     </tr>
                 @empty
@@ -168,9 +167,14 @@
             </tbody>
         </table>
 
-    </div>
+    </x-table-wrapper>
 
 </div>
+
+@php
+    $chartColor = config('ui.colors.primary');
+    [$chartR, $chartG, $chartB] = sscanf($chartColor, "#%02x%02x%02x");
+@endphp
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script>
@@ -182,8 +186,8 @@
             datasets: [{
                 label: '{{ __('app.daily_sales_taka') }}',
                 data: @json($trendValues),
-                borderColor: '#198754',
-                backgroundColor: 'rgba(25,135,84,0.1)',
+                borderColor: '{{ $chartColor }}',
+                backgroundColor: 'rgba({{ $chartR }},{{ $chartG }},{{ $chartB }},0.1)',
                 tension: 0.3,
                 fill: true,
             }]

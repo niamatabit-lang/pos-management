@@ -6,25 +6,20 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.invoice') }} {{ $sale->invoice_no }}</h1>
-            <p class="page-subtitle">{{ $sale->created_at->format('d M Y, h:i A') }}</p>
-        </div>
-
-        <div class="d-flex gap-10 no-print">
-            <a href="{{ route('sales.index') }}" class="btn btn-secondary">&larr; {{ __('app.back_to_list') }}</a>
-            <button onclick="window.print()" class="btn btn-primary">🖨️ {{ __('app.print') }}</button>
-        </div>
-    </div>
+    <x-page-header :title="__('app.invoice') . ' ' . $sale->invoice_no" :subtitle="$sale->created_at->format('d M Y, h:i A')">
+        <x-slot:actions>
+            <div class="d-flex gap-10 no-print">
+                <x-button tag="a" href="{{ route('sales.index') }}" variant="secondary">&larr; {{ __('app.back_to_list') }}</x-button>
+                <x-button variant="primary" type="button" onclick="window.print()">🖨️ {{ __('app.print') }}</x-button>
+            </div>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <div class="form-row">
             <div>
                 <div class="form-label">{{ __('app.customer') }}</div>
@@ -34,18 +29,18 @@
                 <div class="form-label">{{ __('app.payment_status') }}</div>
                 <div>
                     @if ($sale->payment_status === 'paid')
-                        <span class="badge badge-success">{{ __('app.paid') }}</span>
+                        <x-badge variant="success">{{ __('app.paid') }}</x-badge>
                     @elseif ($sale->payment_status === 'partial')
-                        <span class="badge badge-warning">{{ __('app.partial') }}</span>
+                        <x-badge variant="warning">{{ __('app.partial') }}</x-badge>
                     @else
-                        <span class="badge badge-danger">{{ __('app.due') }}</span>
+                        <x-badge variant="danger">{{ __('app.due') }}</x-badge>
                     @endif
                 </div>
             </div>
         </div>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -67,31 +62,31 @@
             </tbody>
         </table>
 
-        <div style="padding:20px;display:flex;justify-content:flex-end;">
-            <div style="min-width:280px;">
-                <div class="d-flex justify-between" style="padding:6px 0;">
+        <div class="summary-panel">
+            <div class="summary-box">
+                <div class="list-row">
                     <span>{{ __('app.subtotal') }}</span>
                     <span>৳ {{ number_format($sale->subtotal, 2) }}</span>
                 </div>
-                <div class="d-flex justify-between" style="padding:6px 0;">
+                <div class="list-row">
                     <span>{{ __('app.discount') }}</span>
                     <span>- ৳ {{ number_format($sale->discount, 2) }}</span>
                 </div>
-                <div class="d-flex justify-between" style="padding:6px 0;font-weight:700;font-size:18px;color:#198754;border-top:1px solid #eee;margin-top:6px;">
+                <div class="list-row summary-row-total">
                     <span>{{ __('app.total') }}</span>
                     <span>৳ {{ number_format($sale->total, 2) }}</span>
                 </div>
-                <div class="d-flex justify-between" style="padding:6px 0;">
+                <div class="list-row">
                     <span>{{ __('app.paid') }}</span>
                     <span>৳ {{ number_format($sale->paid_amount, 2) }}</span>
                 </div>
-                <div class="d-flex justify-between" style="padding:6px 0;font-weight:700;">
+                <div class="list-row fw-700">
                     <span>{{ __('app.due') }}</span>
                     <span>৳ {{ number_format($sale->due_amount, 2) }}</span>
                 </div>
             </div>
         </div>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

@@ -32,21 +32,21 @@
 
     <div class="header-right">
 
-        <form method="POST" action="{{ route('locale.switch', app()->getLocale() === 'bn' ? 'en' : 'bn') }}" style="display:flex;">
+        <form method="POST" action="{{ route('locale.switch', app()->getLocale() === 'bn' ? 'en' : 'bn') }}" class="lang-switch-form">
             @csrf
-            <button type="submit" class="btn btn-secondary btn-sm" title="{{ __('app.switch_language') }}">
+            <x-button variant="secondary" size="sm" title="{{ __('app.switch_language') }}">
                 @if (app()->getLocale() === 'bn')
                     English
                 @else
                     বাংলা
                 @endif
-            </button>
+            </x-button>
         </form>
 
-        <form method="POST" action="{{ route('shops.switch') }}" class="shop-switcher" style="display:flex;align-items:center;gap:8px;background:#eafaf1;border:1px solid #b7e4c7;padding:6px 12px;border-radius:8px;">
+        <form method="POST" action="{{ route('shops.switch') }}" class="shop-switcher">
             @csrf
-            <span style="font-size:12px;font-weight:700;color:#198754;white-space:nowrap;">{{ __('app.current_shop') }}</span>
-            <select name="shop_id" onchange="this.form.submit()" class="form-select" style="min-width:160px;">
+            <span class="shop-switcher-label">{{ __('app.current_shop') }}</span>
+            <select name="shop_id" onchange="this.form.submit()" class="form-select">
                 @foreach ($allShops as $shop)
                     <option value="{{ $shop->id }}" @selected($currentShop->id === $shop->id)>
                         🏬 {{ $shop->name }}
@@ -57,7 +57,7 @@
 
         <div class="user">
 
-            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=198754&color=fff"
+            <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background={{ ltrim(config('ui.colors.primary'), '#') }}&color=fff"
                  alt="User">
 
             <div class="user-info">
@@ -82,11 +82,11 @@
 
         </div>
 
-        <a href="{{ route('password.change') }}" class="btn btn-secondary btn-sm">{{ __('app.change_password') }}</a>
+        <x-button tag="a" href="{{ route('password.change') }}" variant="secondary" size="sm">{{ __('app.change_password') }}</x-button>
 
         <form method="POST" action="{{ route('logout') }}">
             @csrf
-            <button type="submit" class="btn btn-secondary btn-sm">{{ __('app.logout') }}</button>
+            <x-button variant="secondary" size="sm">{{ __('app.logout') }}</x-button>
         </form>
 
     </div>

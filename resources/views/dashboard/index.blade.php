@@ -6,47 +6,44 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">
-                {{ __('app.dashboard') }}
-            </h1>
-            <p class="page-subtitle">
-                {{ $currentShop->name }} —
-                @if ($isToday)
-                    {{ __('app.today_summary') }}
-                @else
-                    {{ $selectedDate->translatedFormat('d F, Y') }} {{ __('app.date_summary') }}
-                @endif
-            </p>
-        </div>
+    <x-page-header :title="__('app.dashboard')">
+        <x-slot:subtitle>
+            {{ $currentShop->name }} —
+            @if ($isToday)
+                {{ __('app.today_summary') }}
+            @else
+                {{ $selectedDate->translatedFormat('d F, Y') }} {{ __('app.date_summary') }}
+            @endif
+        </x-slot:subtitle>
 
-        <form method="GET" action="{{ route('dashboard') }}" style="display:flex;align-items:center;gap:8px;">
-            <label for="dashboardDate" style="font-size:13px;font-weight:600;color:#555;white-space:nowrap;">
-                {{ __('app.select_date') }}
-            </label>
-            <input
-                type="date"
-                id="dashboardDate"
-                name="date"
-                class="form-input"
-                value="{{ $selectedDate->format('Y-m-d') }}"
-                max="{{ now()->format('Y-m-d') }}"
-                onchange="this.form.submit()">
-            @unless ($isToday)
-                <a href="{{ route('dashboard') }}" class="btn btn-secondary btn-sm">{{ __('app.back_to_today') }}</a>
-            @endunless
-        </form>
-    </div>
+        <x-slot:actions>
+            <form method="GET" action="{{ route('dashboard') }}" class="form-group-inline form-group-flush">
+                <label for="dashboardDate" class="form-label mb-0 text-sm text-muted nowrap">
+                    {{ __('app.select_date') }}
+                </label>
+                <input
+                    type="date"
+                    id="dashboardDate"
+                    name="date"
+                    class="form-input"
+                    value="{{ $selectedDate->format('Y-m-d') }}"
+                    max="{{ now()->format('Y-m-d') }}"
+                    onchange="this.form.submit()">
+                @unless ($isToday)
+                    <x-button tag="a" href="{{ route('dashboard') }}" variant="secondary" size="sm">{{ __('app.back_to_today') }}</x-button>
+                @endunless
+            </form>
+        </x-slot:actions>
+    </x-page-header>
 
     @if ($lowStockProducts->isNotEmpty())
-        <div style="background:#fff3cd;color:#856404;padding:14px 18px;border-radius:10px;margin-bottom:20px;">
+        <x-alert variant="warning">
             ⚠️ <strong>{{ __('app.low_stock_alert', ['count' => $lowStockProducts->count()]) }}</strong>
             {{ $lowStockProducts->pluck('name')->take(6)->implode(', ') }}
             @if ($lowStockProducts->count() > 6)
                 {{ __('app.and_more', ['count' => $lowStockProducts->count() - 6]) }}
             @endif
-        </div>
+        </x-alert>
     @endif
 
     <div class="kpi-grid">
@@ -86,14 +83,15 @@
 
     </div>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
 
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.whats_in_stock') }}</h2>
-            @if (auth()->user()->hasPermission('products'))
-                <a href="{{ route('products.index') }}" class="btn btn-secondary btn-sm">{{ __('app.view_all_products') }}</a>
-            @endif
-        </div>
+        <x-page-header :title="__('app.whats_in_stock')" flat class="mb-0">
+            <x-slot:actions>
+                @if (auth()->user()->hasPermission('products'))
+                    <x-button tag="a" href="{{ route('products.index') }}" variant="secondary" size="sm">{{ __('app.view_all_products') }}</x-button>
+                @endif
+            </x-slot:actions>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -114,11 +112,11 @@
                         <td class="text-right">৳ {{ number_format($product->quantity * $product->buy_price, 2) }}</td>
                         <td>
                             @if ($product->quantity == 0)
-                                <span class="badge badge-danger">{{ __('app.out_of_stock') }}</span>
+                                <x-badge variant="danger">{{ __('app.out_of_stock') }}</x-badge>
                             @elseif ($product->isLowStock())
-                                <span class="badge badge-warning">{{ __('app.low_stock') }}</span>
+                                <x-badge variant="warning">{{ __('app.low_stock') }}</x-badge>
                             @else
-                                <span class="badge badge-success">{{ __('app.ok') }}</span>
+                                <x-badge variant="success">{{ __('app.ok') }}</x-badge>
                             @endif
                         </td>
                     </tr>
@@ -132,7 +130,7 @@
             </tbody>
         </table>
 
-    </div>
+    </x-table-wrapper>
 
 </div>
 

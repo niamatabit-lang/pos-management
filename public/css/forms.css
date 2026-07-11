@@ -3,223 +3,193 @@
 ====================================================== */
 
 .form-group{
-
     margin-bottom:20px;
+}
 
+/* No bottom margin — used when the form-group sits inline in a row */
+.form-group-flush{
+    margin-bottom:0;
+}
+
+/* Inline group: label+control aligned at the bottom, side by side */
+.form-group-inline{
+    display:flex;
+    align-items:flex-end;
+    gap:10px;
 }
 
 /* Label */
 
 .form-label{
-
     display:block;
-
     margin-bottom:8px;
-
-    font-size:14px;
-
+    font-size:var(--font-size-sm);
     font-weight:600;
-
-    color:#333;
-
+    color:var(--text);
 }
 
 /* Input */
 
 .form-control{
-
     width:100%;
-
-    height:48px;
-
+    height:var(--control-height);
     padding:0 15px;
-
-    border:1px solid #dcdcdc;
-
-    border-radius:10px;
-
+    border:1px solid var(--border-input);
+    border-radius:var(--radius);
     outline:none;
-
-    font-size:15px;
-
-    transition:.25s;
-
-    background:#fff;
-
+    font-size:var(--font-size-base);
+    transition:var(--transition);
+    background:var(--white);
+    color:var(--text);
 }
 
 .form-control:focus{
-
-    border-color:#198754;
-
-    box-shadow:0 0 0 3px rgba(25,135,84,.15);
-
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px var(--primary-light);
 }
 
 /* Select */
 
 .form-select{
-
     width:100%;
-
-    height:48px;
-
+    height:var(--control-height);
     padding:0 15px;
-
-    border:1px solid #dcdcdc;
-
-    border-radius:10px;
-
+    border:1px solid var(--border-input);
+    border-radius:var(--radius);
     outline:none;
-
-    background:#fff;
-
-    font-size:15px;
-
+    background:var(--white);
+    font-size:var(--font-size-base);
     cursor:pointer;
-
+    color:var(--text);
 }
 
 .form-select:focus{
-
-    border-color:#198754;
-
-    box-shadow:0 0 0 3px rgba(25,135,84,.15);
-
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px var(--primary-light);
 }
 
 /* Textarea */
 
 .form-textarea{
-
     width:100%;
-
     min-height:130px;
-
     padding:15px;
-
     resize:vertical;
-
-    border:1px solid #dcdcdc;
-
-    border-radius:10px;
-
+    border:1px solid var(--border-input);
+    border-radius:var(--radius);
     outline:none;
-
-    transition:.25s;
-
-    font-size:15px;
-
+    transition:var(--transition);
+    font-size:var(--font-size-base);
 }
 
 .form-textarea:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px var(--primary-light);
+}
 
-    border-color:#198754;
-
-    box-shadow:0 0 0 3px rgba(25,135,84,.15);
-
+/* Help / hint text under a field */
+.form-hint{
+    color:var(--text-muted);
+    font-size:var(--font-size-sm);
+    margin-top:6px;
 }
 
 /* Row */
 
 .form-row{
-
     display:grid;
-
     grid-template-columns:repeat(2,1fr);
-
     gap:20px;
-
 }
-
-/* Three Column */
 
 .form-row-3{
-
     display:grid;
-
     grid-template-columns:repeat(3,1fr);
-
     gap:20px;
-
 }
 
-/* Four Column */
-
 .form-row-4{
-
     display:grid;
-
     grid-template-columns:repeat(4,1fr);
-
     gap:20px;
-
 }
 
 /* Checkbox */
 
 .form-check{
-
     display:flex;
-
     align-items:center;
-
     gap:10px;
-
 }
 
 .form-check input{
-
     width:18px;
-
     height:18px;
-
 }
 
 /* Error */
 
 .form-error{
-
     margin-top:6px;
-
-    font-size:13px;
-
-    color:#dc3545;
-
+    font-size:var(--font-size-sm);
+    color:var(--danger);
 }
 
 /* Required */
 
 .required{
+    color:var(--danger);
+}
 
-    color:#dc3545;
+/* Compact inline inputs (e.g. return quantity / reason mini fields) */
+.input-qty{
+    width:70px;
+    height:34px;
+    padding:0 6px;
+}
 
+.input-reason{
+    width:130px;
+    height:34px;
+    padding:0 6px;
+}
+
+.input-qty-cart{
+    width:80px;
+    height:36px;
+    padding:0 8px;
+    display:inline-block;
+}
+
+.input-amount{
+    width:100px;
+    height:34px;
+    padding:0 6px;
+}
+
+/* Inline form panel: label+control rows aligned at bottom, wraps on small screens */
+.form-inline-panel{
+    padding:18px;
+    display:flex;
+    gap:12px;
+    align-items:flex-end;
+    flex-wrap:wrap;
 }
 
 /* Search */
 
 .search-box{
-
     position:relative;
-
 }
 
 .search-box input{
-
     padding-left:42px;
-
 }
 
 .search-icon{
-
     position:absolute;
-
     left:15px;
-
     top:50%;
-
     transform:translateY(-50%);
-
-    color:#777;
-
+    color:var(--text-faint);
 }

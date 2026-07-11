@@ -3,159 +3,107 @@
 ====================================================== */
 
 .btn{
-
     display:inline-flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:10px;
-
-    padding:12px 22px;
-
+    padding:var(--button-padding-y) var(--button-padding-x);
     border:none;
-
     outline:none;
-
     cursor:pointer;
-
-    border-radius:10px;
-
-    font-size:15px;
-
+    border-radius:var(--radius);
+    font-size:var(--font-size-base);
     font-weight:600;
-
-    transition:.25s;
-
+    transition:var(--transition);
     text-decoration:none;
-
 }
 
 /* Primary */
 
 .btn-primary{
-
-    background:#198754;
-
-    color:#fff;
-
+    background:var(--primary);
+    color:var(--white);
 }
 
 .btn-primary:hover{
-
-    background:#146c43;
-
+    background:var(--primary-dark);
 }
 
 /* Secondary */
 
 .btn-secondary{
-
-    background:#ffffff;
-
-    color:#198754;
-
-    border:2px solid #198754;
-
+    background:var(--white);
+    color:var(--secondary);
+    border:2px solid var(--secondary);
 }
 
 .btn-secondary:hover{
-
-    background:#198754;
-
-    color:#ffffff;
-
+    background:var(--secondary);
+    color:var(--white);
 }
 
 /* Success */
 
 .btn-success{
-
-    background:#20c997;
-
-    color:#ffffff;
-
+    background:var(--success);
+    color:var(--white);
 }
 
 .btn-success:hover{
-
-    background:#18a97d;
-
+    filter:brightness(.92);
 }
 
 /* Warning */
 
 .btn-warning{
-
-    background:#ffc107;
-
-    color:#222;
-
+    background:var(--warning);
+    color:var(--text);
 }
 
 .btn-warning:hover{
-
-    background:#e0a800;
-
+    filter:brightness(.92);
 }
 
 /* Danger */
 
 .btn-danger{
-
-    background:#dc3545;
-
-    color:#ffffff;
-
+    background:var(--danger);
+    color:var(--white);
 }
 
 .btn-danger:hover{
-
-    background:#bb2d3b;
-
+    background:var(--danger-dark);
 }
 
 /* Info */
 
 .btn-info{
-
-    background:#0dcaf0;
-
-    color:#ffffff;
-
+    background:var(--info);
+    color:var(--white);
 }
 
 .btn-info:hover{
-
-    background:#0aa7c6;
-
+    background:var(--info-dark);
 }
 
-/* Small */
+/* Sizes */
 
 .btn-sm{
-
-    padding:8px 14px;
-
-    font-size:13px;
-
+    padding:var(--button-sm-padding);
+    font-size:var(--font-size-sm);
 }
-
-/* Large */
 
 .btn-lg{
-
-    padding:15px 30px;
-
+    padding:var(--button-lg-padding);
     font-size:17px;
-
 }
 
-/* Full Width */
-
 .btn-block{
-
     width:100%;
+}
 
+.btn:disabled,
+.btn.is-disabled{
+    opacity:.6;
+    cursor:not-allowed;
 }

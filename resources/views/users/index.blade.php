@@ -6,8 +6,8 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
+    <x-page-header>
+        <x-slot:heading>
             <h1 class="page-title">
                 @if (auth()->user()->isSuperAdmin())
                     {{ __('app.shop_owner_list') }}
@@ -22,24 +22,24 @@
                     {{ __('app.your_created_ids_note') }}
                 @endif
             </p>
-        </div>
+        </x-slot:heading>
 
-        <a href="{{ route('users.create') }}" class="btn btn-primary">
-            @if (auth()->user()->isSuperAdmin())
-                + {{ __('app.new_shop_owner') }}
-            @else
-                + {{ __('app.new_manager_employee') }}
-            @endif
-        </a>
-    </div>
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('users.create') }}" variant="primary">
+                @if (auth()->user()->isSuperAdmin())
+                    + {{ __('app.new_shop_owner') }}
+                @else
+                    + {{ __('app.new_manager_employee') }}
+                @endif
+            </x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -61,27 +61,27 @@
                         @if (!auth()->user()->isSuperAdmin())
                             <td>
                                 @if ($user->isManager())
-                                    <span class="badge badge-warning">{{ __('app.role_manager') }}</span>
+                                    <x-badge variant="warning">{{ __('app.role_manager') }}</x-badge>
                                 @else
-                                    <span class="badge badge-success">{{ __('app.role_employee') }}</span>
+                                    <x-badge variant="success">{{ __('app.role_employee') }}</x-badge>
                                 @endif
                             </td>
                         @endif
                         <td>{{ $user->shops->pluck('name')->join(', ') ?: '-' }}</td>
                         <td>
                             @if ($user->is_active)
-                                <span class="badge badge-success">{{ __('app.active') }}</span>
+                                <x-badge variant="success">{{ __('app.active') }}</x-badge>
                             @else
-                                <span class="badge badge-danger">{{ __('app.inactive') }}</span>
+                                <x-badge variant="danger">{{ __('app.inactive') }}</x-badge>
                             @endif
                         </td>
                         <td class="text-right">
-                            <a href="{{ route('users.edit', $user) }}" class="btn btn-secondary btn-sm">{{ __('app.edit') }}</a>
+                            <x-button tag="a" href="{{ route('users.edit', $user) }}" variant="secondary" size="sm">{{ __('app.edit') }}</x-button>
                             @if ($user->is_active)
-                                <form method="POST" action="{{ route('users.destroy', $user) }}" style="display:inline;" onsubmit="return confirm('{{ __('app.confirm_deactivate') }}');">
+                                <form method="POST" action="{{ route('users.destroy', $user) }}" class="d-inline" onsubmit="return confirm('{{ __('app.confirm_deactivate') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">{{ __('app.deactivate') }}</button>
+                                    <x-button variant="danger" size="sm">{{ __('app.deactivate') }}</x-button>
                                 </form>
                             @endif
                         </td>
@@ -93,7 +93,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

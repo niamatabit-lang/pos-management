@@ -1,0 +1,109 @@
+/* ======================================================
+   BUTTONS
+====================================================== */
+
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:var(--button-padding-y) var(--button-padding-x);
+    border:none;
+    outline:none;
+    cursor:pointer;
+    border-radius:var(--radius);
+    font-size:var(--font-size-base);
+    font-weight:600;
+    transition:var(--transition);
+    text-decoration:none;
+}
+
+/* Primary */
+
+.btn-primary{
+    background:var(--primary);
+    color:var(--white);
+}
+
+.btn-primary:hover{
+    background:var(--primary-dark);
+}
+
+/* Secondary */
+
+.btn-secondary{
+    background:var(--white);
+    color:var(--secondary);
+    border:2px solid var(--secondary);
+}
+
+.btn-secondary:hover{
+    background:var(--secondary);
+    color:var(--white);
+}
+
+/* Success */
+
+.btn-success{
+    background:var(--success);
+    color:var(--white);
+}
+
+.btn-success:hover{
+    filter:brightness(.92);
+}
+
+/* Warning */
+
+.btn-warning{
+    background:var(--warning);
+    color:var(--text);
+}
+
+.btn-warning:hover{
+    filter:brightness(.92);
+}
+
+/* Danger */
+
+.btn-danger{
+    background:var(--danger);
+    color:var(--white);
+}
+
+.btn-danger:hover{
+    background:var(--danger-dark);
+}
+
+/* Info */
+
+.btn-info{
+    background:var(--info);
+    color:var(--white);
+}
+
+.btn-info:hover{
+    background:var(--info-dark);
+}
+
+/* Sizes */
+
+.btn-sm{
+    padding:var(--button-sm-padding);
+    font-size:var(--font-size-sm);
+}
+
+.btn-lg{
+    padding:var(--button-lg-padding);
+    font-size:17px;
+}
+
+.btn-block{
+    width:100%;
+}
+
+.btn:disabled,
+.btn.is-disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}

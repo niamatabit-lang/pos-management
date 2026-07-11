@@ -6,36 +6,31 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.categories') }}</h1>
-            <p class="page-subtitle">{{ __('app.categories_subtitle') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.categories')" :subtitle="__('app.categories_subtitle')" />
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="success">
             {{ session('success') }}
-        </div>
+        </x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="POST" action="{{ route('categories.store') }}" class="form-row">
             @csrf
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.category_name') }} <span class="required">*</span></label>
                 <input type="text" name="name" class="form-control" value="{{ old('name') }}" placeholder="{{ __('app.category_name_eg') }}">
                 @error('name')
                     <div class="form-error">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;">
-                <button type="submit" class="btn btn-primary">+ {{ __('app.add_category') }}</button>
+            <div class="form-group form-group-flush align-end d-flex">
+                <x-button variant="primary">+ {{ __('app.add_category') }}</x-button>
             </div>
         </form>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -53,7 +48,7 @@
                             <form method="POST" action="{{ route('categories.destroy', $category) }}" onsubmit="return confirm('{{ __('app.are_you_sure') }}');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                             </form>
                         </td>
                     </tr>
@@ -64,7 +59,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

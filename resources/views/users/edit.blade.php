@@ -6,16 +6,13 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ $user->name }} — {{ __('app.edit') }}</h1>
-            <p class="page-subtitle">{{ __('app.leave_password_blank_note') }}</p>
-        </div>
+    <x-page-header :title="$user->name . ' — ' . __('app.edit')" :subtitle="__('app.leave_password_blank_note')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('users.index') }}" variant="secondary">&larr; {{ __('app.back') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">&larr; {{ __('app.back') }}</a>
-    </div>
-
-    <div class="card">
+    <x-card>
         <form method="POST" action="{{ route('users.update', $user) }}">
             @csrf
             @method('PUT')
@@ -58,14 +55,14 @@
 
                 <div class="form-group">
                     <label class="form-label">{{ __('app.shops_to_grant_access') }}</label>
-                    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                    <div class="d-flex flex-wrap gap-16">
                         @forelse ($shops as $shop)
                             <label class="form-check">
                                 <input type="checkbox" name="shop_ids[]" value="{{ $shop->id }}" @checked(in_array($shop->id, $assignedShopIds))>
                                 {{ $shop->name }}
                             </label>
                         @empty
-                            <span style="color:#999;">{{ __('app.no_shops_found') }}</span>
+                            <span class="text-muted-note">{{ __('app.no_shops_found') }}</span>
                         @endforelse
                     </div>
                 </div>
@@ -85,7 +82,7 @@
 
                 <div class="form-group">
                     <label class="form-label">{{ __('app.permissions_checkbox_label') }}</label>
-                    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                    <div class="d-flex flex-wrap gap-16">
                         @foreach ($permissions as $key => $label)
                             <label class="form-check">
                                 <input type="checkbox" name="permissions[]" value="{{ $key }}" @checked(in_array($key, $currentPermissions))>
@@ -97,9 +94,9 @@
 
             @endif
 
-            <button type="submit" class="btn btn-primary">{{ __('app.update') }}</button>
+            <x-button variant="primary">{{ __('app.update') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 

@@ -1,11 +1,43 @@
-@import 'tailwindcss';
+/* ======================================================
+   POS MANAGEMENT — Global Reset & Base
+   ------------------------------------------------------
+   সব Color/Spacing/Radius/Shadow/Font var(--...) থেকে আসে।
+   এই ফাইলে কোনো Hardcoded Color নেই — মূল মান থাকে
+   config/ui.php + resources/css/tokens.css এ।
+====================================================== */
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
-@source '../**/*.blade.php';
-@source '../**/*.js';
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:var(--font-family);
+    background:var(--background);
+    color:var(--text);
+    font-size:var(--font-size-base);
+    line-height:var(--line-height-base);
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+ul{
+    list-style:none;
+}
+
+img{
+    max-width:100%;
+    display:block;
+}
+
+button, input, select, textarea{
+    font-family:inherit;
 }

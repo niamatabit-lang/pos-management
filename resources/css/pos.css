@@ -1,0 +1,30 @@
+/* ======================================================
+   POS SCREEN LAYOUT (sales/create)
+====================================================== */
+
+.pos-layout{
+    display:grid;
+    grid-template-columns:1.5fr 1fr;
+    gap:20px;
+    align-items:start;
+}
+
+/* চেকআউট প্যানেলটা স্ক্রল করলেও সবসময় দেখা যাবে, নিচের গ্রাহকের ডিটেইলস/বাটন
+   আর স্ক্রিনের বাইরে চলে যাবে না */
+.pos-layout .card:nth-child(2){
+    position:sticky;
+    top:20px;
+    max-height:calc(100vh - 40px);
+    overflow-y:auto;
+}
+
+@media (max-width:900px){
+    .pos-layout{
+        grid-template-columns:1fr;
+    }
+    .pos-layout .card:nth-child(2){
+        position:static;
+        max-height:none;
+        overflow-y:visible;
+    }
+}

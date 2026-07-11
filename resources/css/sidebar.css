@@ -1,0 +1,154 @@
+/* ======================================================
+   SIDEBAR
+====================================================== */
+
+.sidebar{
+    background:var(--primary);
+    color:var(--white);
+    width:var(--sidebar-width);
+    height:100vh;
+    position:fixed;
+    top:0;
+    left:0;
+    overflow-y:auto;
+    transition:var(--transition);
+    z-index:var(--z-sidebar);
+}
+
+/* ==========================
+   Logo
+========================== */
+
+.logo{
+    height:var(--header-height);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    font-size:24px;
+    font-weight:700;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    color:var(--primary-light);
+}
+
+/* ==========================
+   Navigation
+========================== */
+
+.sidebar-nav{
+    padding:20px 15px;
+}
+
+.sidebar-nav ul{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.sidebar-nav li{
+    list-style:none;
+}
+
+.sidebar-nav a{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:14px 18px;
+    color:var(--white);
+    border-radius:var(--radius);
+    transition:var(--transition);
+    font-size:var(--font-size-base);
+    font-weight:500;
+}
+
+.sidebar-nav a i{
+    width:22px;
+    text-align:center;
+    font-size:18px;
+    font-style:normal;
+}
+
+.sidebar-nav a:hover{
+    background:rgba(255,255,255,.12);
+}
+
+.sidebar-nav a.active{
+    background:var(--white);
+    color:var(--primary);
+    font-weight:600;
+}
+
+/* ==========================
+   Section Title
+========================== */
+
+.menu-title{
+    margin:25px 15px 10px;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--primary-light);
+}
+
+/* ==========================
+   Sub Menu
+========================== */
+
+.sub-menu{
+    margin-left:18px;
+    display:none;
+}
+
+.sub-menu a{
+    font-size:14px;
+    padding:11px 15px;
+}
+
+.has-sub.active .sub-menu{
+    display:block;
+}
+
+/* ==========================
+   Scrollbar
+========================== */
+
+.sidebar::-webkit-scrollbar{
+    width:7px;
+}
+
+.sidebar::-webkit-scrollbar-thumb{
+    background:rgba(255,255,255,.25);
+    border-radius:20px;
+}
+
+/* ==========================
+   Collapse
+========================== */
+
+.sidebar.collapsed{
+    width:var(--sidebar-width-collapsed);
+}
+
+.sidebar.collapsed .logo span{
+    display:none;
+}
+
+.sidebar.collapsed a span{
+    display:none;
+}
+
+.sidebar.collapsed .menu-title{
+    display:none;
+}
+
+.sidebar.collapsed .sub-menu{
+    display:none!important;
+}
+
+.sidebar.collapsed + .main{
+    margin-left:var(--sidebar-width-collapsed);
+    width:calc(100% - var(--sidebar-width-collapsed));
+}

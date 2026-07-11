@@ -6,33 +6,28 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.nav_products') }}</h1>
-            <p class="page-subtitle">{{ __('app.products_subtitle') }}</p>
-        </div>
-
-        <div style="display:flex;gap:10px;">
-            <a href="{{ route('products.import.form') }}" class="btn btn-secondary">{{ __('app.bulk_import') }}</a>
-            <a href="{{ route('products.create') }}" class="btn btn-primary">+ {{ __('app.add_product') }}</a>
-        </div>
-    </div>
+    <x-page-header :title="__('app.nav_products')" :subtitle="__('app.products_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('products.import.form') }}" variant="secondary">{{ __('app.bulk_import') }}</x-button>
+            <x-button tag="a" href="{{ route('products.create') }}" variant="primary">+ {{ __('app.add_product') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="success">
             {{ session('success') }}
-        </div>
+        </x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="GET" action="{{ route('products.index') }}" class="form-row-4">
 
-            <div class="form-group search-box" style="margin-bottom:0;">
+            <div class="form-group search-box form-group-flush">
                 <label class="form-label">{{ __('app.search') }}</label>
                 <input type="text" name="search" class="form-control" placeholder="{{ __('app.search_name_sku') }}" value="{{ request('search') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.category') }}</label>
                 <select name="category_id" class="form-select">
                     <option value="">{{ __('app.all_categories') }}</option>
@@ -44,20 +39,20 @@
                 </select>
             </div>
 
-            <div class="form-group form-check" style="margin-bottom:0;align-items:flex-end;">
+            <div class="form-group form-check form-group-flush align-end">
                 <input type="checkbox" name="low_stock" id="low_stock" value="1" @checked(request('low_stock'))>
-                <label for="low_stock" class="form-label" style="margin-bottom:0;">{{ __('app.only_low_stock') }}</label>
+                <label for="low_stock" class="form-label mb-0">{{ __('app.only_low_stock') }}</label>
             </div>
 
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;gap:10px;">
-                <button type="submit" class="btn btn-secondary">{{ __('app.filter') }}</button>
-                <a href="{{ route('products.index') }}" class="btn btn-secondary">{{ __('app.reset') }}</a>
+            <div class="form-group form-group-flush form-group-inline">
+                <x-button variant="secondary" type="submit">{{ __('app.filter') }}</x-button>
+                <x-button tag="a" href="{{ route('products.index') }}" variant="secondary">{{ __('app.reset') }}</x-button>
             </div>
 
         </form>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -84,20 +79,20 @@
                         <td class="text-right">{{ number_format($product->quantity) }} {{ $product->unit }}</td>
                         <td>
                             @if ($product->quantity == 0)
-                                <span class="badge badge-danger">{{ __('app.out_of_stock') }}</span>
+                                <x-badge variant="danger">{{ __('app.out_of_stock') }}</x-badge>
                             @elseif ($product->isLowStock())
-                                <span class="badge badge-warning">{{ __('app.low_stock') }}</span>
+                                <x-badge variant="warning">{{ __('app.low_stock') }}</x-badge>
                             @else
-                                <span class="badge badge-success">{{ __('app.in_stock') }}</span>
+                                <x-badge variant="success">{{ __('app.in_stock') }}</x-badge>
                             @endif
                         </td>
                         <td class="text-right">
-                            <div class="table-action" style="justify-content:flex-end;">
-                                <a href="{{ route('products.edit', $product) }}" class="btn btn-secondary btn-sm">{{ __('app.edit') }}</a>
+                            <div class="table-action justify-end">
+                                <x-button tag="a" href="{{ route('products.edit', $product) }}" variant="secondary" size="sm">{{ __('app.edit') }}</x-button>
                                 <form method="POST" action="{{ route('products.destroy', $product) }}" onsubmit="return confirm('{{ __('app.are_you_sure') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                    <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                                 </form>
                             </div>
                         </td>
@@ -110,14 +105,14 @@
             </tbody>
         </table>
 
-        <div class="table-footer">
+        <x-slot:footer>
             <div>
                 {{ __('app.showing_results', ['from' => $products->firstItem() ?? 0, 'to' => $products->lastItem() ?? 0, 'total' => $products->total()]) }}
             </div>
 
             {{ $products->links('vendor.pagination.custom') }}
-        </div>
-    </div>
+        </x-slot:footer>
+    </x-table-wrapper>
 
 </div>
 

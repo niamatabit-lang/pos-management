@@ -1,0 +1,91 @@
+/* ======================================================
+   DESIGN TOKENS (static fallback)
+   ------------------------------------------------------
+   এই ফাইলের মানগুলো config/ui.php এর ডিফল্ট মানের সাথে মিরর করা।
+   Runtime-এ resources/views/layouts/partials/theme-vars.blade.php
+   (config/ui.php থেকে generate হওয়া <style>) এই মানগুলোকে override
+   করে, তাই config/ui.php-ই আসল Single Source of Truth।
+
+   এই ফাইলটি শুধুমাত্র fallback হিসেবে থাকে, যাতে theme-vars partial
+   কোনো কারণে লোড না হলেও অ্যাপ ভাঙা না দেখায়।
+====================================================== */
+
+:root{
+
+    /* Colors */
+    --primary:#198754;
+    --primary-dark:#146c43;
+    --primary-light:#d1f4df;
+    --secondary:#198754;
+
+    --success:#20c997;
+    --warning:#ffc107;
+    --warning-text:#856404;
+    --warning-bg:#fff3cd;
+    --danger:#dc3545;
+    --danger-dark:#bb2d3b;
+    --danger-bg:#fde2e2;
+    --info:#0dcaf0;
+    --info-dark:#0aa7c6;
+    --info-bg:#d9f3ff;
+    --info-text:#0d6efd;
+
+    --white:#ffffff;
+    --background:#f5f7fa;
+
+    --text:#222222;
+    --text-light:#666666;
+    --text-muted:#888888;
+    --text-faint:#777777;
+
+    --border:#e5e7eb;
+    --border-input:#dcdcdc;
+
+    /* Typography */
+    --font-family:"Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base:15px;
+    --font-size-sm:13px;
+    --font-size-lg:18px;
+    --line-height-base:1.5;
+
+    /* Layout */
+    --sidebar-width:260px;
+    --sidebar-width-collapsed:80px;
+    --header-height:70px;
+    --header-height-mobile:60px;
+    --content-padding:25px;
+    --content-padding-mobile:15px;
+    --container-max-width:1600px;
+
+    /* Shape & elevation */
+    --radius:10px;
+    --radius-sm:8px;
+    --radius-lg:12px;
+    --radius-pill:50px;
+    --radius-circle:50%;
+    --shadow:0 5px 18px rgba(0,0,0,.08);
+    --shadow-lg:0 10px 30px rgba(0,0,0,.12);
+
+    /* Motion */
+    --transition-fast:.15s ease;
+    --transition:.25s ease;
+    --transition-slow:.35s ease;
+
+    /* Components */
+    --control-height:48px;
+    --button-height:48px;
+    --button-padding-x:22px;
+    --button-padding-y:12px;
+    --button-sm-padding:8px 14px;
+    --button-lg-padding:15px 30px;
+
+    /* Spacing */
+    --spacing-unit:8px;
+
+    /* Z-index */
+    --z-sidebar:999;
+    --z-header:100;
+    --z-dropdown:500;
+    --z-modal:1000;
+    --z-toast:1100;
+}

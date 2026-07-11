@@ -1,0 +1,178 @@
+/* ======================================================
+   TABLE
+====================================================== */
+
+.table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    background:var(--white);
+    border-radius:var(--radius-lg);
+    box-shadow:var(--shadow);
+}
+
+.table-wrapper-padded{
+    padding:20px;
+}
+
+.table-wrapper-flat{
+    box-shadow:none;
+}
+
+.table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:900px;
+}
+
+/* Header */
+
+.table thead{
+    background:var(--primary);
+}
+
+.table thead th{
+    color:var(--white);
+    padding:16px 18px;
+    text-align:left;
+    font-size:var(--font-size-sm);
+    font-weight:600;
+    white-space:nowrap;
+}
+
+/* Body */
+
+.table tbody tr{
+    border-bottom:1px solid #eeeeee;
+    transition:var(--transition);
+}
+
+.table tbody tr:hover{
+    background:#f7fbf8;
+}
+
+.table tbody td{
+    padding:15px 18px;
+    font-size:var(--font-size-sm);
+    color:#444;
+    vertical-align:middle;
+}
+
+/* Zebra */
+
+.table tbody tr:nth-child(even){
+    background:#fcfcfc;
+}
+
+/* Last Row */
+
+.table tbody tr:last-child{
+    border-bottom:none;
+}
+
+/* Align */
+
+.text-left{ text-align:left; }
+.text-center{ text-align:center; }
+.text-right{ text-align:right; }
+
+/* Row actions (small inline action buttons within a cell) */
+
+.table-action{
+    display:flex;
+    gap:8px;
+    align-items:center;
+}
+
+/* Right-aligned wrapping action button clusters (e.g. table headers) */
+
+.table-actions{
+    display:flex;
+    gap:6px;
+    justify-content:flex-end;
+    flex-wrap:wrap;
+}
+
+/* Badge */
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:6px 12px;
+    border-radius:var(--radius-pill);
+    font-size:12px;
+    font-weight:600;
+}
+
+.badge-success{
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+.badge-danger{
+    background:var(--danger-bg);
+    color:var(--danger);
+}
+
+.badge-warning{
+    background:var(--warning-bg);
+    color:var(--warning-text);
+}
+
+.badge-info{
+    background:var(--info-bg);
+    color:var(--info-text);
+}
+
+/* Empty */
+
+.table-empty{
+    text-align:center;
+    padding:50px 20px;
+    color:var(--text-faint);
+    font-size:var(--font-size-base);
+}
+
+/* Footer */
+
+.table-footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    padding:18px;
+    border-top:1px solid #eeeeee;
+}
+
+/* Pagination */
+
+.pagination{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.pagination a{
+    width:38px;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:var(--radius-sm);
+    border:1px solid #dddddd;
+    color:#333;
+    transition:var(--transition);
+}
+
+.pagination a:hover{
+    background:var(--primary);
+    color:var(--white);
+    border-color:var(--primary);
+}
+
+.pagination .active{
+    background:var(--primary);
+    color:var(--white);
+    border-color:var(--primary);
+}

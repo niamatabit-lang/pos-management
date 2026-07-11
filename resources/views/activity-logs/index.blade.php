@@ -6,14 +6,9 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.nav_activity_logs') }}</h1>
-            <p class="page-subtitle">{{ __('app.activity_logs_subtitle') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.nav_activity_logs')" :subtitle="__('app.activity_logs_subtitle')" />
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -39,14 +34,14 @@
             </tbody>
         </table>
 
-        <div class="table-footer">
+        <x-slot:footer>
             <div>
                 {{ __('app.showing_results', ['from' => $logs->firstItem() ?? 0, 'to' => $logs->lastItem() ?? 0, 'total' => $logs->total()]) }}
             </div>
 
             {{ $logs->links('vendor.pagination.custom') }}
-        </div>
-    </div>
+        </x-slot:footer>
+    </x-table-wrapper>
 
 </div>
 

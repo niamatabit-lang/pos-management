@@ -6,46 +6,39 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.returns_title') }}</h1>
-            <p class="page-subtitle">{{ __('app.returns_subtitle') }}</p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.returns_title')" :subtitle="__('app.returns_subtitle')" />
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('error') }}
-        </div>
+        <x-alert variant="danger">{{ session('error') }}</x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
-        <form method="GET" action="{{ route('returns.index') }}" style="display:flex;gap:12px;align-items:flex-end;">
-            <div class="form-group" style="margin-bottom:0;flex:1;">
+    <x-card class="mb-20">
+        <form method="GET" action="{{ route('returns.index') }}" class="d-flex gap-12 align-end">
+            <div class="form-group form-group-flush flex-1">
                 <label class="form-label">{{ __('app.invoice_number') }}</label>
                 <input type="text" name="invoice" class="form-control" placeholder="{{ __('app.invoice_eg') }}" value="{{ request('invoice') }}">
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('app.search') }}</button>
+            <x-button variant="primary">{{ __('app.search') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
     @if (request('invoice') && ! $sale)
-        <div style="background:#fff3cd;color:#856404;padding:14px 18px;border-radius:10px;margin-bottom:20px;">
+        <x-alert variant="warning">
             {{ __('app.no_sale_for_invoice') }}
-        </div>
+        </x-alert>
     @endif
 
     @if ($sale)
-        <div class="table-wrapper" style="margin-bottom:25px;">
-            <div class="page-header" style="padding:18px 18px 0;">
-                <h2 class="page-title" style="font-size:18px;">{{ $sale->invoice_no }} — {{ $sale->customer_name ?? __('app.walk_in_customer') }}</h2>
-            </div>
+        <x-table-wrapper class="mb-25">
+            <x-page-header flat class="mb-0">
+                <x-slot:heading>
+                    <h2 class="page-title text-lg">{{ $sale->invoice_no }} — {{ $sale->customer_name ?? __('app.walk_in_customer') }}</h2>
+                </x-slot:heading>
+            </x-page-header>
 
             <table class="table">
                 <thead>
@@ -64,15 +57,15 @@
                             <td class="text-right">{{ $item->quantity }}</td>
                             <td class="text-right">
                                 @if ($item->quantity > 0)
-                                    <form method="POST" action="{{ route('returns.store') }}" style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;">
+                                    <form method="POST" action="{{ route('returns.store') }}" class="table-actions">
                                         @csrf
                                         <input type="hidden" name="sale_item_id" value="{{ $item->id }}">
-                                        <input type="number" name="quantity" class="form-control" style="width:70px;height:34px;padding:0 6px;" min="1" max="{{ $item->quantity }}" placeholder="{{ __('app.amount') }}" required>
-                                        <input type="text" name="reason" class="form-control" style="width:130px;height:34px;padding:0 6px;" placeholder="{{ __('app.reason_optional') }}">
-                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('{{ __('app.confirm_return') }}');">{{ __('app.return') }}</button>
+                                        <input type="number" name="quantity" class="form-control input-qty" min="1" max="{{ $item->quantity }}" placeholder="{{ __('app.amount') }}" required>
+                                        <input type="text" name="reason" class="form-control input-reason" placeholder="{{ __('app.reason_optional') }}">
+                                        <x-button variant="danger" size="sm" onclick="return confirm('{{ __('app.confirm_return') }}');">{{ __('app.return') }}</x-button>
                                     </form>
                                 @else
-                                    <span class="badge badge-secondary">{{ __('app.fully_returned') }}</span>
+                                    <x-badge variant="secondary">{{ __('app.fully_returned') }}</x-badge>
                                 @endif
                             </td>
                         </tr>
@@ -83,13 +76,15 @@
                     @endforelse
                 </tbody>
             </table>
-        </div>
+        </x-table-wrapper>
     @endif
 
-    <div class="table-wrapper">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.recent_returns') }}</h2>
-        </div>
+    <x-table-wrapper>
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.recent_returns') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -119,7 +114,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

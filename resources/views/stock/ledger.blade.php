@@ -6,46 +6,36 @@
 
 <div class="page">
 
-    <div class="page-header">
+    <x-page-header :title="__('app.nav_stock_ledger')" :subtitle="__('app.stock_ledger_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('stock.index') }}" variant="secondary">&larr; {{ __('app.back_to_stock_list') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
-        <div>
-            <h1 class="page-title">
-                {{ __('app.nav_stock_ledger') }}
-            </h1>
-
-            <p class="page-subtitle">
-                {{ __('app.stock_ledger_subtitle') }}
-            </p>
-        </div>
-
-        <a href="{{ route('stock.index') }}" class="btn btn-secondary">
-            &larr; {{ __('app.back_to_stock_list') }}
-        </a>
-
-    </div>
-
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="GET" action="{{ route('stock.ledger') }}" class="form-row-3">
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.date') }}</label>
                 <input type="date" name="date" class="form-control" value="{{ $date->format('Y-m-d') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;gap:10px;">
-                <button type="submit" class="btn btn-primary">{{ __('app.search') }}</button>
-                <a href="{{ route('stock.ledger') }}" class="btn btn-secondary">{{ __('app.today') }}</a>
+            <div class="form-group form-group-flush form-group-inline">
+                <x-button variant="primary" type="submit">{{ __('app.search') }}</x-button>
+                <x-button tag="a" href="{{ route('stock.ledger') }}" variant="secondary">{{ __('app.today') }}</x-button>
             </div>
 
         </form>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">
-                {{ __('app.stock_account_for_date', ['date' => $date->format('d M Y')]) }}
-            </h2>
-        </div>
+    <x-table-wrapper>
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">
+                    {{ __('app.stock_account_for_date', ['date' => $date->format('d M Y')]) }}
+                </h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -59,7 +49,7 @@
             <tbody>
                 @forelse ($rows as $row)
                     <tr>
-                        <td>{{ $row['product']->name }} <small style="color:#999;">({{ $row['product']->sku }})</small></td>
+                        <td>{{ $row['product']->name }} <small class="text-muted-note">({{ $row['product']->sku }})</small></td>
                         <td class="text-right">{{ number_format($row['opening']) }} {{ $row['product']->unit }}</td>
                         <td class="text-right">{{ number_format($row['out_during']) }} {{ $row['product']->unit }}</td>
                         <td class="text-right"><strong>{{ number_format($row['closing']) }} {{ $row['product']->unit }}</strong></td>
@@ -73,7 +63,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

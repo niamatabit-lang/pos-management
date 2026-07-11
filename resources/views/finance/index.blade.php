@@ -6,35 +6,24 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">
-                {{ __('app.finance_title') }}
-            </h1>
-            <p class="page-subtitle">
-                {{ $shop->name }} — {{ __('app.finance_subtitle') }}
-            </p>
-        </div>
-    </div>
+    <x-page-header :title="__('app.finance_title')" :subtitle="$shop->name . ' — ' . __('app.finance_subtitle')" />
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
     @if ($isShort)
-        <div style="background:#fde2e2;color:#dc3545;padding:16px 20px;border-radius:10px;margin-bottom:20px;font-weight:700;">
+        <x-alert variant="danger" size="lg">
             ⚠️ {{ __('app.short_warning', ['amount' => number_format(abs($difference), 2)]) }}
-        </div>
+        </x-alert>
     @elseif ($isExtra)
-        <div style="background:#d1f4df;color:#198754;padding:16px 20px;border-radius:10px;margin-bottom:20px;font-weight:700;">
+        <x-alert variant="success" size="lg">
             ✅ {{ __('app.extra_notice', ['amount' => number_format($difference, 2)]) }}
-        </div>
+        </x-alert>
     @else
-        <div style="background:#d1f4df;color:#198754;padding:16px 20px;border-radius:10px;margin-bottom:20px;font-weight:700;">
+        <x-alert variant="success" size="lg">
             ✅ {{ __('app.balance_ok') }}
-        </div>
+        </x-alert>
     @endif
 
     <div class="kpi-grid">
@@ -86,12 +75,12 @@
 
     </div>
 
-    <p style="color:#888;font-size:13px;margin:15px 0 25px;">
+    <p class="text-muted-note mt-15 mb-25">
         {{ __('app.finance_formula_note') }}
     </p>
 
     {{-- ========== মালিকের প্রফিট উইথড্রয়াল ========== --}}
-    <div class="kpi-grid" style="margin-bottom:10px;">
+    <div class="kpi-grid mb-10">
 
         <div class="kpi-card">
             <div class="kpi-title">{{ __('app.total_net_profit') }}</div>
@@ -105,23 +94,25 @@
 
         <div class="kpi-card">
             <div class="kpi-title">{{ __('app.available_profit') }}</div>
-            <div class="kpi-value" style="color: {{ $availableProfit < 0 ? '#dc3545' : '#198754' }};">
+            <div class="kpi-value {{ $availableProfit < 0 ? 'text-danger' : 'text-primary' }}">
                 ৳ {{ number_format($availableProfit, 2) }}
             </div>
         </div>
 
     </div>
 
-    <p style="color:#888;font-size:13px;margin:0 0 25px;">
+    <p class="text-muted-note mb-25">
         {{ __('app.withdrawal_note') }}
     </p>
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.withdraw_profit') }}</h2>
-        </div>
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.withdraw_profit') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
-        <form method="POST" action="{{ route('profit-withdrawals.store') }}" style="padding:18px;">
+        <form method="POST" action="{{ route('profit-withdrawals.store') }}" class="p-18">
             @csrf
             <div class="form-row-3">
                 <div class="form-group">
@@ -138,7 +129,7 @@
                     <input type="text" name="note" class="form-control" placeholder="{{ __('app.optional') }}" value="{{ old('note') }}">
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('app.record_withdrawal') }}</button>
+            <x-button variant="primary">{{ __('app.record_withdrawal') }}</x-button>
         </form>
 
         <table class="table">
@@ -162,7 +153,7 @@
                             <form method="POST" action="{{ route('profit-withdrawals.destroy', $withdrawal) }}" onsubmit="return confirm('{{ __('app.confirm_delete_withdrawal') }}');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                             </form>
                         </td>
                     </tr>
@@ -173,32 +164,36 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
     {{-- ========== প্রফিট উইথড্রয়াল সেকশন শেষ ========== --}}
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.update_cash') }}</h2>
-        </div>
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.update_cash') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
-        <form method="POST" action="{{ route('finance.update-cash') }}" style="padding:18px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;">
+        <form method="POST" action="{{ route('finance.update-cash') }}" class="form-inline-panel">
             @csrf
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.opening_cash') }} (৳)</label>
                 <input type="number" step="0.01" min="0" name="opening_cash" class="form-control" value="{{ $shop->opening_cash }}">
             </div>
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.current_cash_kpi') }} (৳)</label>
                 <input type="number" step="0.01" min="0" name="current_cash" class="form-control" value="{{ $shop->current_cash }}">
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('app.update') }}</button>
+            <x-button variant="primary">{{ __('app.update') }}</x-button>
         </form>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.receivables_list') }}</h2>
-        </div>
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.receivables_list') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -222,10 +217,10 @@
                         <td class="text-right">৳ {{ number_format($sale->paid_amount, 2) }}</td>
                         <td class="text-right"><strong>৳ {{ number_format($sale->due_amount, 2) }}</strong></td>
                         <td class="text-right">
-                            <form method="POST" action="{{ route('finance.receivables.payment', $sale) }}" style="display:inline-flex;gap:4px;">
+                            <form method="POST" action="{{ route('finance.receivables.payment', $sale) }}" class="d-inline-flex gap-4">
                                 @csrf
-                                <input type="number" step="0.01" min="0.01" max="{{ $sale->due_amount }}" name="payment_amount" class="form-control" style="width:100px;height:34px;padding:0 6px;" placeholder="{{ __('app.amount') }}" required>
-                                <button type="submit" class="btn btn-secondary btn-sm">{{ __('app.collect') }}</button>
+                                <input type="number" step="0.01" min="0.01" max="{{ $sale->due_amount }}" name="payment_amount" class="form-control input-amount" placeholder="{{ __('app.amount') }}" required>
+                                <x-button variant="secondary" size="sm">{{ __('app.collect') }}</x-button>
                             </form>
                         </td>
                     </tr>
@@ -236,17 +231,19 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.add_new_receivable') }}</h2>
-        </div>
-        <p style="color:#888;font-size:13px;padding:0 18px;margin:6px 0 0;">
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.add_new_receivable') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
+        <p class="section-note">
             {{ __('app.add_receivable_note') }}
         </p>
 
-        <form method="POST" action="{{ route('receivables.store') }}" style="padding:18px;">
+        <form method="POST" action="{{ route('receivables.store') }}" class="p-18">
             @csrf
             <div class="form-row-3">
                 <div class="form-group">
@@ -268,14 +265,16 @@
                 <label class="form-label">{{ __('app.note') }}</label>
                 <input type="text" name="note" class="form-control" placeholder="{{ __('app.optional') }}" value="{{ old('note') }}">
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('app.add_receivable') }}</button>
+            <x-button variant="primary">{{ __('app.add_receivable') }}</x-button>
         </form>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.manual_receivables_list') }}</h2>
-        </div>
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.manual_receivables_list') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -298,25 +297,25 @@
                         <td class="text-right">৳ {{ number_format($receivable->paid_amount, 2) }}</td>
                         <td class="text-right">
                             @if ($receivable->isPaidOff())
-                                <span class="badge badge-success">{{ __('app.collection_done') }}</span>
+                                <x-badge variant="success">{{ __('app.collection_done') }}</x-badge>
                             @else
                                 ৳ {{ number_format($receivable->dueAmount(), 2) }}
                             @endif
                         </td>
                         <td>{{ $receivable->note ?? '-' }}</td>
                         <td class="text-right">
-                            <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;">
+                            <div class="table-actions">
                                 @unless ($receivable->isPaidOff())
-                                    <form method="POST" action="{{ route('receivables.payment', $receivable) }}" style="display:inline-flex;gap:4px;">
+                                    <form method="POST" action="{{ route('receivables.payment', $receivable) }}" class="d-inline-flex gap-4">
                                         @csrf
-                                        <input type="number" step="0.01" min="0.01" max="{{ $receivable->dueAmount() }}" name="payment_amount" class="form-control" style="width:100px;height:34px;padding:0 6px;" placeholder="{{ __('app.amount') }}" required>
-                                        <button type="submit" class="btn btn-secondary btn-sm">{{ __('app.collect') }}</button>
+                                        <input type="number" step="0.01" min="0.01" max="{{ $receivable->dueAmount() }}" name="payment_amount" class="form-control input-amount" placeholder="{{ __('app.amount') }}" required>
+                                        <x-button variant="secondary" size="sm">{{ __('app.collect') }}</x-button>
                                     </form>
                                 @endunless
                                 <form method="POST" action="{{ route('receivables.destroy', $receivable) }}" onsubmit="return confirm('{{ __('app.confirm_delete_receivable') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                    <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                                 </form>
                             </div>
                         </td>
@@ -328,14 +327,16 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper" style="margin-bottom:25px;">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.add_new_payable') }}</h2>
-        </div>
+    <x-table-wrapper class="mb-25">
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.add_new_payable') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
-        <form method="POST" action="{{ route('payables.store') }}" style="padding:18px;">
+        <form method="POST" action="{{ route('payables.store') }}" class="p-18">
             @csrf
             <div class="form-row-3">
                 <div class="form-group">
@@ -357,14 +358,16 @@
                 <label class="form-label">{{ __('app.note') }}</label>
                 <input type="text" name="note" class="form-control" placeholder="{{ __('app.optional') }}" value="{{ old('note') }}">
             </div>
-            <button type="submit" class="btn btn-primary">{{ __('app.add_payable') }}</button>
+            <x-button variant="primary">{{ __('app.add_payable') }}</x-button>
         </form>
-    </div>
+    </x-table-wrapper>
 
-    <div class="table-wrapper">
-        <div class="page-header" style="padding:18px 18px 0;">
-            <h2 class="page-title" style="font-size:18px;">{{ __('app.payables_list') }}</h2>
-        </div>
+    <x-table-wrapper>
+        <x-page-header flat class="mb-0">
+            <x-slot:heading>
+                <h2 class="page-title text-lg">{{ __('app.payables_list') }}</h2>
+            </x-slot:heading>
+        </x-page-header>
 
         <table class="table">
             <thead>
@@ -387,25 +390,25 @@
                         <td class="text-right">৳ {{ number_format($payable->paid_amount, 2) }}</td>
                         <td class="text-right">
                             @if ($payable->isPaidOff())
-                                <span class="badge badge-success">{{ __('app.paid_off') }}</span>
+                                <x-badge variant="success">{{ __('app.paid_off') }}</x-badge>
                             @else
                                 ৳ {{ number_format($payable->dueAmount(), 2) }}
                             @endif
                         </td>
                         <td>{{ $payable->note ?? '-' }}</td>
                         <td class="text-right">
-                            <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap;">
+                            <div class="table-actions">
                                 @unless ($payable->isPaidOff())
-                                    <form method="POST" action="{{ route('payables.payment', $payable) }}" style="display:inline-flex;gap:4px;">
+                                    <form method="POST" action="{{ route('payables.payment', $payable) }}" class="d-inline-flex gap-4">
                                         @csrf
-                                        <input type="number" step="0.01" min="0.01" max="{{ $payable->dueAmount() }}" name="payment_amount" class="form-control" style="width:100px;height:34px;padding:0 6px;" placeholder="{{ __('app.amount') }}" required>
-                                        <button type="submit" class="btn btn-secondary btn-sm">{{ __('app.payment') }}</button>
+                                        <input type="number" step="0.01" min="0.01" max="{{ $payable->dueAmount() }}" name="payment_amount" class="form-control input-amount" placeholder="{{ __('app.amount') }}" required>
+                                        <x-button variant="secondary" size="sm">{{ __('app.payment') }}</x-button>
                                     </form>
                                 @endunless
                                 <form method="POST" action="{{ route('payables.destroy', $payable) }}" onsubmit="return confirm('{{ __('app.confirm_delete_payable') }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">{{ __('app.delete') }}</button>
+                                    <x-button variant="danger" size="sm">{{ __('app.delete') }}</x-button>
                                 </form>
                             </div>
                         </td>
@@ -417,7 +420,7 @@
                 @endforelse
             </tbody>
         </table>
-    </div>
+    </x-table-wrapper>
 
 </div>
 

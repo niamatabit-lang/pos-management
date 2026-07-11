@@ -6,16 +6,13 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.add_product') }}</h1>
-            <p class="page-subtitle">{{ __('app.add_product_subtitle') }}</p>
-        </div>
+    <x-page-header :title="__('app.add_product')" :subtitle="__('app.add_product_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('products.index') }}" variant="secondary">&larr; {{ __('app.back_to_list') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">&larr; {{ __('app.back_to_list') }}</a>
-    </div>
-
-    <div class="card">
+    <x-card>
         <form method="POST" action="{{ route('products.store') }}">
             @csrf
 
@@ -84,14 +81,14 @@
                 <div class="form-group">
                     <label class="form-label">{{ __('app.commission_per_unit') }}</label>
                     <input type="number" step="0.01" name="commission" class="form-control" value="{{ old('commission', 0) }}">
-                    <small style="color:#888;">{{ __('app.commission_note') }}</small>
+                    <small class="text-muted-note">{{ __('app.commission_note') }}</small>
                     @error('commission') <div class="form-error">{{ $message }}</div> @enderror
                 </div>
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ __('app.save_product') }}</button>
+            <x-button variant="primary">{{ __('app.save_product') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 

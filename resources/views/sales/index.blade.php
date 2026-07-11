@@ -6,43 +6,38 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.sales') }}</h1>
-            <p class="page-subtitle">{{ __('app.sales_subtitle') }}</p>
-        </div>
-
-        <a href="{{ route('sales.create') }}" class="btn btn-primary">+ {{ __('app.new_sale') }}</a>
-    </div>
+    <x-page-header :title="__('app.sales')" :subtitle="__('app.sales_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('sales.create') }}" variant="primary">+ {{ __('app.new_sale') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="GET" action="{{ route('sales.index') }}" class="form-row-3">
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.search') }}</label>
                 <input type="text" name="search" class="form-control" placeholder="{{ __('app.search_invoice_customer') }}" value="{{ request('search') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.date') }}</label>
                 <input type="date" name="date" class="form-control" value="{{ request('date') }}">
             </div>
 
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;gap:10px;">
-                <button type="submit" class="btn btn-secondary">{{ __('app.filter') }}</button>
-                <a href="{{ route('sales.index') }}" class="btn btn-secondary">{{ __('app.reset') }}</a>
+            <div class="form-group form-group-flush form-group-inline">
+                <x-button variant="secondary" type="submit">{{ __('app.filter') }}</x-button>
+                <x-button tag="a" href="{{ route('sales.index') }}" variant="secondary">{{ __('app.reset') }}</x-button>
             </div>
 
         </form>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -67,15 +62,15 @@
                         <td class="text-right">৳ {{ number_format($sale->due_amount, 2) }}</td>
                         <td>
                             @if ($sale->payment_status === 'paid')
-                                <span class="badge badge-success">{{ __('app.paid') }}</span>
+                                <x-badge variant="success">{{ __('app.paid') }}</x-badge>
                             @elseif ($sale->payment_status === 'partial')
-                                <span class="badge badge-warning">{{ __('app.partial') }}</span>
+                                <x-badge variant="warning">{{ __('app.partial') }}</x-badge>
                             @else
-                                <span class="badge badge-danger">{{ __('app.due') }}</span>
+                                <x-badge variant="danger">{{ __('app.due') }}</x-badge>
                             @endif
                         </td>
                         <td class="text-right">
-                            <a href="{{ route('sales.show', $sale) }}" class="btn btn-secondary btn-sm">{{ __('app.view') }}</a>
+                            <x-button tag="a" href="{{ route('sales.show', $sale) }}" variant="secondary" size="sm">{{ __('app.view') }}</x-button>
                         </td>
                     </tr>
                 @empty
@@ -86,14 +81,14 @@
             </tbody>
         </table>
 
-        <div class="table-footer">
+        <x-slot:footer>
             <div>
                 {{ __('app.showing_results', ['from' => $sales->firstItem() ?? 0, 'to' => $sales->lastItem() ?? 0, 'total' => $sales->total()]) }}
             </div>
 
             {{ $sales->links('vendor.pagination.custom') }}
-        </div>
-    </div>
+        </x-slot:footer>
+    </x-table-wrapper>
 
 </div>
 

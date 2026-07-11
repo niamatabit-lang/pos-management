@@ -1,0 +1,157 @@
+/* ======================================================
+   SHARED COMPONENTS — Card, Alert, Auth Shell
+   ------------------------------------------------------
+   এই ফাইলে থাকা Class গুলো একাধিক Blade View জুড়ে ব্যবহৃত হয়।
+   এখানে একটি পরিবর্তন করলেই Card/Alert/Auth Page এর সব জায়গায়
+   পরিবর্তন প্রতিফলিত হবে।
+====================================================== */
+
+/* ----------------------------
+   Card
+---------------------------- */
+
+.card{
+    background:var(--white);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:20px;
+}
+
+/* Width modifiers, reused instead of inline max-width */
+.card-w-400{ width:100%; max-width:400px; }
+.card-w-480{ width:100%; max-width:480px; }
+.card-w-600{ width:100%; max-width:600px; }
+
+/* ----------------------------
+   Alert / Flash message banner
+   (distinct from the small pill .badge)
+---------------------------- */
+
+.alert{
+    padding:14px 18px;
+    border-radius:var(--radius);
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+.alert-sm{
+    padding:12px 16px;
+    margin-bottom:18px;
+}
+
+.alert-lg{
+    padding:16px 20px;
+    font-weight:700;
+}
+
+.alert-success{
+    background:var(--primary-light);
+    color:var(--primary);
+}
+
+.alert-danger{
+    background:var(--danger-bg);
+    color:var(--danger);
+}
+
+.alert-warning{
+    background:var(--warning-bg);
+    color:var(--warning-text);
+}
+
+.alert-info{
+    background:var(--info-bg);
+    color:var(--info-text);
+}
+
+/* ----------------------------
+   KPI Grid modifiers
+---------------------------- */
+
+.kpi-grid-2{
+    grid-template-columns:repeat(2,1fr);
+}
+
+/* ----------------------------
+   Auth Pages (login / forgot-password / reset-password / change-password)
+---------------------------- */
+
+.auth-body{
+    background:var(--background);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.auth-card{
+    width:100%;
+    max-width:400px;
+    position:relative;
+}
+
+.auth-header{
+    text-align:center;
+    margin-bottom:24px;
+}
+
+.auth-logo{
+    font-size:22px;
+    font-weight:700;
+    color:var(--primary);
+}
+
+.auth-subtitle{
+    color:var(--text-muted);
+    margin-top:6px;
+}
+
+.auth-lang-switch{
+    position:absolute;
+    top:16px;
+    right:16px;
+}
+
+.auth-footer-link{
+    text-align:center;
+    margin-top:18px;
+}
+
+/* ----------------------------
+   Generic text helpers used across views
+---------------------------- */
+
+.text-muted-note{
+    color:var(--text-muted);
+    font-size:var(--font-size-sm);
+}
+
+/* ----------------------------
+   Invoice / sale summary rows (sales/show)
+---------------------------- */
+
+.summary-panel{
+    padding:20px;
+    display:flex;
+    justify-content:flex-end;
+}
+
+.summary-box{
+    min-width:280px;
+}
+
+.summary-row-total{
+    font-weight:700;
+    font-size:var(--font-size-lg);
+    color:var(--primary);
+    border-top:1px solid var(--border);
+    margin-top:6px;
+}
+
+/* Small note placed under a section heading inside a table-wrapper */
+.section-note{
+    color:var(--text-muted);
+    font-size:var(--font-size-sm);
+    padding:0 18px;
+    margin:6px 0 0;
+}

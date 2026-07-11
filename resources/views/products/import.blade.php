@@ -6,45 +6,42 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
-            <h1 class="page-title">{{ __('app.bulk_import_title') }}</h1>
-            <p class="page-subtitle">{{ __('app.bulk_import_subtitle') }}</p>
-        </div>
-
-        <a href="{{ route('products.index') }}" class="btn btn-secondary">&larr; {{ __('app.back_to_products') }}</a>
-    </div>
+    <x-page-header :title="__('app.bulk_import_title')" :subtitle="__('app.bulk_import_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('products.index') }}" variant="secondary">&larr; {{ __('app.back_to_products') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="success">
             {{ session('success') }}
-        </div>
+        </x-alert>
     @endif
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
+        <x-alert variant="danger">
             {{ session('error') }}
-        </div>
+        </x-alert>
     @endif
 
     @if (session('importErrors') && count(session('importErrors')))
-        <div style="background:#fff3cd;color:#856404;padding:14px 18px;border-radius:10px;margin-bottom:20px;">
+        <x-alert variant="warning">
             <strong>{{ __('app.import_errors_found') }}</strong>
-            <ul style="margin:8px 0 0 20px;">
+            <ul class="mt-10 ml-20">
                 @foreach (session('importErrors') as $err)
                     <li>{{ $err }}</li>
                 @endforeach
             </ul>
-        </div>
+        </x-alert>
     @endif
 
-    <div class="card" style="max-width:600px;">
-        <p class="page-subtitle" style="margin-bottom:15px;">
+    <x-card width="600">
+        <p class="page-subtitle mb-15">
             {{ __('app.csv_columns_note') }}
             <code>name, sku, category, unit, buy_price, sell_price, commission, quantity, reorder_level</code>
         </p>
 
-        <a href="{{ route('products.import.sample') }}" class="btn btn-secondary" style="margin-bottom:20px;">{{ __('app.download_sample_csv') }}</a>
+        <x-button tag="a" href="{{ route('products.import.sample') }}" variant="secondary" class="mb-20">{{ __('app.download_sample_csv') }}</x-button>
 
         <form method="POST" action="{{ route('products.import.store') }}" enctype="multipart/form-data">
             @csrf
@@ -55,9 +52,9 @@
                 @error('file') <div class="form-error">{{ $message }}</div> @enderror
             </div>
 
-            <button type="submit" class="btn btn-primary">{{ __('app.import') }}</button>
+            <x-button variant="primary">{{ __('app.import') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 

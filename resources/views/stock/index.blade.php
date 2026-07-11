@@ -6,40 +6,24 @@
 
 <div class="page">
 
-    <div class="page-header">
-
-        <div>
-            <h1 class="page-title">
-                {{ __('app.nav_stock') }}
-            </h1>
-
-            <p class="page-subtitle">
-                {{ __('app.stock_page_subtitle') }}
-            </p>
-        </div>
-
-        <a href="{{ route('stock.create') }}" class="btn btn-primary">
-            + {{ __('app.stock_adjustment') }}
-        </a>
-
-    </div>
+    <x-page-header :title="__('app.nav_stock')" :subtitle="__('app.stock_page_subtitle')">
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('stock.create') }}" variant="primary">+ {{ __('app.stock_adjustment') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
     @if (session('success'))
-        <div style="background:#d1f4df;color:#198754;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('success') }}
-        </div>
+        <x-alert variant="success">{{ session('success') }}</x-alert>
     @endif
 
     @if (session('error'))
-        <div style="background:#fde2e2;color:#dc3545;padding:14px 18px;border-radius:10px;margin-bottom:20px;font-weight:600;">
-            {{ session('error') }}
-        </div>
+        <x-alert variant="danger">{{ session('error') }}</x-alert>
     @endif
 
-    <div class="card" style="margin-bottom:20px;">
+    <x-card class="mb-20">
         <form method="GET" action="{{ route('stock.index') }}" class="form-row-3">
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.product') }}</label>
                 <select name="product_id" class="form-select">
                     <option value="">{{ __('app.all_products') }}</option>
@@ -51,7 +35,7 @@
                 </select>
             </div>
 
-            <div class="form-group" style="margin-bottom:0;">
+            <div class="form-group form-group-flush">
                 <label class="form-label">{{ __('app.type') }}</label>
                 <select name="type" class="form-select">
                     <option value="">{{ __('app.all_types') }}</option>
@@ -59,15 +43,15 @@
                 </select>
             </div>
 
-            <div class="form-group" style="margin-bottom:0;display:flex;align-items:flex-end;gap:10px;">
-                <button type="submit" class="btn btn-secondary">{{ __('app.filter') }}</button>
-                <a href="{{ route('stock.index') }}" class="btn btn-secondary">{{ __('app.reset') }}</a>
+            <div class="form-group form-group-flush form-group-inline">
+                <x-button variant="secondary" type="submit">{{ __('app.filter') }}</x-button>
+                <x-button tag="a" href="{{ route('stock.index') }}" variant="secondary">{{ __('app.reset') }}</x-button>
             </div>
 
         </form>
-    </div>
+    </x-card>
 
-    <div class="table-wrapper">
+    <x-table-wrapper>
         <table class="table">
             <thead>
                 <tr>
@@ -85,9 +69,9 @@
                         <td>{{ $movement->product->name ?? 'N/A' }}</td>
                         <td>
                             @if ($movement->type === 'in')
-                                <span class="badge badge-success">{{ __('app.stock_in') }}</span>
+                                <x-badge variant="success">{{ __('app.stock_in') }}</x-badge>
                             @else
-                                <span class="badge badge-danger">{{ __('app.stock_out') }}</span>
+                                <x-badge variant="danger">{{ __('app.stock_out') }}</x-badge>
                             @endif
                         </td>
                         <td class="text-right">{{ number_format($movement->quantity) }}</td>
@@ -103,14 +87,14 @@
             </tbody>
         </table>
 
-        <div class="table-footer">
+        <x-slot:footer>
             <div>
                 {{ __('app.showing_results', ['from' => $movements->firstItem() ?? 0, 'to' => $movements->lastItem() ?? 0, 'total' => $movements->total()]) }}
             </div>
 
             {{ $movements->links('vendor.pagination.custom') }}
-        </div>
-    </div>
+        </x-slot:footer>
+    </x-table-wrapper>
 
 </div>
 

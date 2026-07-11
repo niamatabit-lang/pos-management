@@ -6,8 +6,8 @@
 
 <div class="page">
 
-    <div class="page-header">
-        <div>
+    <x-page-header>
+        <x-slot:heading>
             <h1 class="page-title">
                 @if ($mode === 'shop_owner')
                     {{ __('app.create_shop_owner') }}
@@ -22,12 +22,14 @@
                     {{ __('app.permissions_note') }}
                 @endif
             </p>
-        </div>
+        </x-slot:heading>
 
-        <a href="{{ route('users.index') }}" class="btn btn-secondary">&larr; {{ __('app.back') }}</a>
-    </div>
+        <x-slot:actions>
+            <x-button tag="a" href="{{ route('users.index') }}" variant="secondary">&larr; {{ __('app.back') }}</x-button>
+        </x-slot:actions>
+    </x-page-header>
 
-    <div class="card">
+    <x-card>
         <form method="POST" action="{{ route('users.store') }}">
             @csrf
 
@@ -62,14 +64,14 @@
 
                 <div class="form-group">
                     <label class="form-label">{{ __('app.shops_to_grant_access') }} <span class="required">*</span></label>
-                    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                    <div class="d-flex flex-wrap gap-16">
                         @forelse ($shops as $shop)
                             <label class="form-check">
                                 <input type="checkbox" name="shop_ids[]" value="{{ $shop->id }}" @checked(collect(old('shop_ids'))->contains($shop->id))>
                                 {{ $shop->name }}
                             </label>
                         @empty
-                            <span style="color:#999;">{{ __('app.no_shops_found_create_one') }}</span>
+                            <span class="text-muted-note">{{ __('app.no_shops_found_create_one') }}</span>
                         @endforelse
                     </div>
                     @error('shop_ids') <div class="form-error">{{ $message }}</div> @enderror
@@ -103,7 +105,7 @@
 
                 <div class="form-group">
                     <label class="form-label">{{ __('app.permissions_checkbox_label') }}</label>
-                    <div style="display:flex;flex-wrap:wrap;gap:16px;">
+                    <div class="d-flex flex-wrap gap-16">
                         @foreach ($permissions as $key => $label)
                             <label class="form-check">
                                 <input type="checkbox" name="permissions[]" value="{{ $key }}" @checked(collect(old('permissions'))->contains($key))>
@@ -115,9 +117,9 @@
 
             @endif
 
-            <button type="submit" class="btn btn-primary">{{ __('app.save') }}</button>
+            <x-button variant="primary">{{ __('app.save') }}</x-button>
         </form>
-    </div>
+    </x-card>
 
 </div>
 
