@@ -126,6 +126,9 @@
 .overflow-auto{ overflow:auto; }
 .overflow-hidden{ overflow:hidden; }
 
+/* Locks background scrolling while the mobile sidebar drawer is open */
+body.no-scroll{ overflow:hidden; }
+
 /* Transition */
 
 .transition{ transition:var(--transition); }

@@ -25,6 +25,7 @@
     display:flex;
     align-items:center;
     gap:20px;
+    flex-shrink:0;
 }
 
 /* ===========================
@@ -44,7 +45,8 @@
     transition:var(--transition);
 }
 
-.menu-toggle:hover{
+.menu-toggle:hover,
+.menu-toggle.active{
     background:var(--primary-dark);
 }
 
@@ -79,6 +81,9 @@
     align-items:center;
     gap:20px;
     flex-wrap:wrap;
+    flex:1 1 auto;
+    min-width:0;
+    justify-content:flex-end;
 }
 
 /* ===========================

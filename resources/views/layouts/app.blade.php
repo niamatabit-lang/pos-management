@@ -36,6 +36,8 @@
 
     </div>
 
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
 </div>
 
 {{-- Script list is centrally defined in config/ui.php --}}
